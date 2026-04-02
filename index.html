@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Board Games Collection</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <canvas id="bg-canvas"></canvas>
+
+    <main class="app-container">
+      <div id="catalog-view">
+        <header>
+          <h1>Board Games Catalog</h1>
+          <nav id="filters">
+            <input type="text" id="search-input" placeholder="Пошук гри..." />
+          </nav>
+        </header>
+        <div id="content-area">
+            <p style="text-align: center">Loading collection...</p>
+        </div> 
+      </div>
+
+      <div id="game-page-view" class="hidden"></div>
+    </main>
+
+    <script type="module" src="js/script.js"></script>
+  </body>
+</html>

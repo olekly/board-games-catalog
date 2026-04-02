@@ -1,0 +1,107 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Eagle+Lake&display=swap');
+
+body.theme-dixit .game-profile-cover {
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border: 4px solid #fcf6ef;
+    z-index: 10;
+}
+
+
+body.theme-dixit .game-profile-cover {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+
+/* =========================================
+   ТЕМА: DIXIT (Магія, ніч та фантазія)
+   Всі правила починаються з body.theme-dixit
+   ========================================= */
+
+/* 1. ШАПКА: Глибокий нічний градієнт замість коричневого фону */
+body.theme-dixit .header-background {
+    background: linear-gradient(180deg, #11091f 0%, #291845 100%);
+}
+
+body.theme-dixit .gallery-thumb,
+body.theme-dixit #lb-image {
+    /* Прибираємо стандартну квадратну тінь */
+    box-shadow: none; 
+    /* drop-shadow ідеально повторює форму предмета (навіть якщо це прозорий текст) */
+    filter: drop-shadow(0 0 15px rgba(229, 205, 123, 0.3));
+}
+
+/* 2. ІНФО-КАРТКА ТА ДОПОВНЕННЯ: Перефарбовуємо у колір нічного неба */
+body.theme-dixit .game-info-card,
+body.theme-dixit .expansion-card-horizontal {
+    background-color: #201336;
+    border: 1px solid #4a3473; /* Фіолетова рамка */
+    box-shadow: 0 10px 30px rgba(17, 9, 31, 0.4);
+}
+
+/* 3. ТЕКСТИ: Робимо світлими (золотисті та білі) */
+body.theme-dixit .game-info-card h1,
+body.theme-dixit .expansion-content h3 {
+    color: #e5cd7b; /* Золотистий заголовок */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+body.theme-dixit .game-description-text p,
+body.theme-dixit .expansion-content p {
+    color: #e2d9f3; /* М'який фіолетово-білий текст */
+}
+
+/* 4. ПЛАШКИ ХАРАКТЕРИСТИК: Робимо тематичними */
+body.theme-dixit .card-stats span {
+    background-color: #3b2461;
+    color: #e5cd7b;
+    border: 1px solid #4a3473;
+}
+
+/* 5. КНОПКИ (Головна магія) */
+body.theme-dixit .action-btn {
+    background-color: #e5cd7b;
+    color: #201336;
+    box-shadow: 0 4px 15px rgba(229, 205, 123, 0.3);
+}
+
+body.theme-dixit .action-btn:hover {
+    background-color: #fff1b8;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 241, 184, 0.5);
+}
+
+/* Другорядна кнопка (для карток) */
+body.theme-dixit .secondary-btn {
+    background-color: transparent;
+    color: #e5cd7b;
+    border: 2px solid #e5cd7b;
+}
+
+body.theme-dixit .secondary-btn:hover {
+    background-color: rgba(229, 205, 123, 0.1);
+}
+
+/* 6. ГАЛЕРЕЯ ТА ЗАГОЛОВКИ */
+body.theme-dixit .gallery-section h2,
+body.theme-dixit .expansions-section h2 {
+    font-family: 'Eagle Lake', cursive; /* Казковий "діксітовий" шрифт */
+    color: #e5cd7b; /* Золотисто-жовте заповнення букв */
+    
+    /* НОВЕ: Робимо сірий контур (stroke) навколо букв */
+    -webkit-text-stroke: 1.5px #7a7a7a; /* Товщина 1.5px і сірий колір */
+    
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6); /* Темна тінь для об'єму */
+    font-size: 2.8rem; /* Зробимо текст трохи більшим, щоб контур краще читався */
+    letter-spacing: 2px; /* Додамо простору між буквами */
+    margin-bottom: 25px;
+}
