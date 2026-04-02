@@ -1,15 +1,21 @@
-//Main Scrpit
-
+// =========================================
+// MAIN CONTROLLER & SEARCH
+// =========================================
 import { boardGames } from './database.js';
-import { renderCatalog } from './func.js';
+import { renderCatalog } from './catalog.js';
 
+// =========================================
+// 1. INITIALIZATION
+// =========================================
 boardGames.sort((gameA, gameB) => {
     return gameA.id.localeCompare(gameB.id);
 });
 
 renderCatalog(boardGames);
 
-
+// =========================================
+// 2. SEARCH FILTER
+// =========================================
 const searchInput = document.getElementById('search-input');
 
 searchInput.addEventListener('input', function(event) {

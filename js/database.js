@@ -1,8 +1,7 @@
 // Board Games Database
 
 export const boardGames = [
-    {
-        id: "dixit",
+    {   id: "dixit",
         title: "Dixit",
         language: "Language Independent",
         players: { min: 3, max: 8 },

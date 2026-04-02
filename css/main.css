@@ -1,0 +1,189 @@
+/* =========================================
+   BASE & RESET
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8dcc8;
+    color: #3b2514;  
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(http://www.transparenttextures.com/patterns/fabric-1-dark.png);
+    background-size: 600px;
+    opacity: 0.4;
+    mix-blend-mode: color-burn;
+    pointer-events: none;
+    z-index: -1;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================
+   GLOBAL BACKGROUND CANVAS
+   ========================================= */
+
+#bg-canvas {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1;
+    pointer-events: auto;
+}
+
+/* =========================================
+   APP CONTAINER
+   ========================================= */
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 20px 20px;
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.app-container>* {
+    pointer-events: auto;
+}
+
+/* =========================================
+   CATALOG: HEADER & SEARCH
+   ========================================= */
+
+header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(136, 125, 106, 0.6);
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+header h1 {
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+}
+
+.search-input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e0cda7;
+    width: 250px;
+    font-size: 1rem;
+    color: #4a3623;
+    background-color: #fcf6ef;
+}
+
+/* =========================================
+    CATALOG: GAMES GRID
+   ========================================= */
+.games-grid.view-shop {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 20px 0;
+}
+
+/* =========================================
+   CATALOG: GAME CARD
+   ========================================= */
+
+.game-card {
+    background-color: #fcf6ef;
+    border: 1px solid #e0cda7;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-cover img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    padding-top: 5px;
+}
+
+.card-info {
+    padding: 16px;
+    color: #4a3623;
+}
+
+.card-info h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #3b2514;
+}
+
+.card-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #7b5b40;
+}
+
+.card-stats span {
+    background-color: #e8d8c3;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #5c4532;
+}
+
+/* =========================================
+   SHARED UTILITIES (3D TILT)
+   ========================================= */
+
+.tilt-wrapper {
+    perspective: 1000px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.tilt-wrapper:hover {
+    z-index: 100;
+}
+
+.tilt-target {
+    transition: transform 0.05s ease-out;
+    will-change: transform;
+}
