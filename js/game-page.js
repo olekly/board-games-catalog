@@ -2,7 +2,8 @@
 // GAME PAGE BUILDER & INTERACTIVITY
 // =========================================
 import { boardGames } from './database.js';
-import { initConstellationCanvas, stopConstellationCanvas } from './dixit-stars.js';
+import { initConstellationCanvas, stopConstellationCanvas } from './dixit.js';
+import { initDixitParallax, stopDixitParallax } from './dixit.js';
 
 export function openGamePage(gameId) {
     const game = boardGames.find(g => g.id === gameId);
@@ -129,11 +130,13 @@ export function openGamePage(gameId) {
     // =========================================
     if (game.id === 'dixit') {
         initConstellationCanvas('game-canvas-bg');
+        initDixitParallax();
     }
 
     // --- Back Button ---
     document.getElementById('back-btn').addEventListener('click', () => {
         stopConstellationCanvas();
+        stopDixitParallax();
         gamePageView.classList.add('hidden');
         catalogView.classList.remove('hidden');
         document.body.className = ''; 

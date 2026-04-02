@@ -12,31 +12,56 @@ body.theme-dixit .header-background {
     background: transparent !important;
     mask-image: none !important;
     -webkit-mask-image: none !important;
+    z-index: auto !important;
 }
 
 body.theme-dixit {
-    background: linear-gradient(180deg, #07030d 0%, #1a0f2e 50%, #36173d 100%);
-    background-attachment: fixed;
+    background-color: #07030d;
+    background-image: linear-gradient(180deg, #07030d 0%, #1a0f2e 30%, #4a2152 65%, #b85e44 90%, #e0aa60 100%);
+    background-attachment: scroll;
+    position: relative;
 }
 
 body.theme-dixit::before {
     opacity: 0.1;
     mix-blend-mode: screen;
+    z-index: -2;
+}
 
+body.theme-dixit .app-container::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 100vw;
+    height: 500px;
+    z-index: 5;
+    pointer-events: none;
+    background-image:
+        radial-gradient(200% 80% at 0% 120%, #3d140e 0%, #3d140e 45%, transparent 45.1%),
+        radial-gradient(150% 85% at 85% 120%, #592113 0%, #592113 45%, transparent 45.1%),
+        radial-gradient(260% 190% at 5% 158%, #7a2e19 0%, #7a2e19 45%, transparent 45.1%),
+        radial-gradient(160% 160% at 110% 130%, #9c3f20 0%, #9c3f20 45%, transparent 45.1%),
+        radial-gradient(200% 100% at 50% 120%, #c45c29 0%, #c45c29 45%, transparent 45.1%),
+        radial-gradient(100% 100% at 50% 75%, #ffdf85 0%, #ffaa33 15%, transparent 35%);
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 body.theme-dixit #game-canvas-bg {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -6;
     pointer-events: none;
 }
 
 body.theme-dixit .app-container {
-    z-index: 10;
+    z-index: auto !important;
+    position: relative;
+    padding-bottom: 300px;
 }
 
 body.theme-dixit .game-profile-cover {
@@ -52,12 +77,18 @@ body.theme-dixit .game-profile-cover {
     z-index: 10;
 }
 
+
+
 /* =========================================
    GALLERY
    ========================================= */
 
 body.theme-dixit .gameplay-gallery img {
     border: none;
+}
+
+body.theme-dixit #lb-image {
+    border-radius: 20px;
 }
 
 /* =========================================
@@ -72,6 +103,7 @@ body.theme-dixit .expansion-card {
     border: 1px solid rgba(229, 205, 123, 0.15);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.02);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    z-index: 10;
 }
 
 body.theme-dixit .expansion-card:hover {
@@ -151,6 +183,22 @@ body.theme-dixit .back-btn:hover {
     box-shadow: 0 8px 20px rgba(74, 52, 115, 0.6), 0 0 10px rgba(255, 241, 184, 0.5);
 }
 
+body.theme-dixit .glass-arrow {
+    background: rgba(52, 28, 97, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(50, 23, 100, 0.5);
+    color: #e2d9f3;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-dixit .glass-arrow:hover {
+    background: rgba(94, 62, 145, 0.6);
+    color: #ffffff;
+    border-color: rgba(180, 140, 255, 0.8);
+    box-shadow: 0 8px 20px rgba(74, 52, 115, 0.6), 0 0 10px rgba(255, 241, 184, 0.5);
+}
+
 body.theme-dixit .card-stats span {
     background-color: #3b2461;
     color: #e5cd7b;
@@ -187,4 +235,36 @@ body.theme-dixit .gallery-thumb,
 body.theme-dixit #lb-image {
     box-shadow: none;
     filter: drop-shadow(0 0 15px rgba(229, 205, 123, 0.3));
+}
+
+/* =========================================
+   THEME DIXIT: PARALLAX ELEMENTS
+   ========================================= */
+#dixit-parallax-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.px-item {
+    position: absolute;
+    will-change: transform;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+    transition: transform 0.4s cubic-bezier(0.1, 0.3, 0.1, 1);
+}
+
+.px-card {
+    width: 130px;
+    border-radius: 10px;
+    opacity: 0.95;
+}
+
+.px-char {
+    width: 200px;
+    opacity: 1;
 }

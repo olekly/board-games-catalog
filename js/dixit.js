@@ -34,7 +34,8 @@ export function initConstellationCanvas(canvasId) {
     const mouse = { x: -1000, y: -1000 };
 
     const generateStars = () => {
-        numParticles = Math.floor((canvas.width * canvas.height) / 5000);
+        const calculatedParticles = Math.floor((canvas.width * canvas.height) / 7000);
+        numParticles = Math.min(calculatedParticles, 300);
         particles = [];
         for (let i = 0; i < numParticles; i++) {
             particles.push({
@@ -114,5 +115,55 @@ export function stopConstellationCanvas() {
     if (canvasAnimationId) {
         cancelAnimationFrame(canvasAnimationId);
         canvasAnimationId = null;
+    }
+}
+
+// =========================================
+// DIXIT THEME: PARALLAX EFFECT
+// =========================================
+
+let scrollHandler = null;
+
+export function initDixitParallax() {
+    const container = document.createElement('div');
+    container.id = 'dixit-parallax-container';
+    
+    container.innerHTML = `
+        <img src="./assets/dixit/card1.png" class="px-item px-card" data-speed="0.45" data-rot="-15" data-rot-speed="-0.03" style="left: 3%; top: -15%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/card2.png" class="px-item px-card" data-speed="0.7" data-rot="25" data-rot-speed="0.05" style="right: 5%; top: -30%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/card3.png" class="px-item px-card" data-speed="0.3" data-rot="-5" data-rot-speed="-0.02" style="left: 85%; top: 40%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/card4.png" class="px-item px-card" data-speed="0.55" data-rot="10" data-rot-speed="0.04" style="left: 15%; top: 70%;" onerror="this.style.display='none'">
+
+        <img src="./assets/dixit/char1.png" class="px-item px-char" data-speed="-2.35" data-rot="2" style="left: 8%; bottom: -120%;" onerror="this.style.display='none'">
+     `;
+    
+    document.body.appendChild(container);
+
+    const items = container.querySelectorAll('.px-item');
+
+    scrollHandler = () => {
+        const scrolled = window.scrollY;
+        
+        items.forEach(item => {
+            const speed = parseFloat(item.dataset.speed);
+            const rot = parseFloat(item.dataset.rot);
+            const rotSpeed = parseFloat(item.dataset.rotSpeed || 0);
+            const currentRot = rot + (scrolled * rotSpeed);
+            item.style.transform = `translate3d(0, ${scrolled * speed}px, 0) rotate(${currentRot}deg)`;
+        });
+    };
+
+    window.addEventListener('scroll', scrollHandler);
+    scrollHandler();
+}
+
+export function stopDixitParallax() {
+    if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler);
+        scrollHandler = null;
+    }
+    const container = document.getElementById('dixit-parallax-container');
+    if (container) {
+        container.remove();
     }
 }
