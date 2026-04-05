@@ -21,9 +21,9 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url(http://www.transparenttextures.com/patterns/fabric-1-dark.png);
+    background-image: url('../assets/textures/45-degree-fabric-dark.png');
     background-size: 600px;
-    opacity: 0.4;
+    opacity: 0.8;
     mix-blend-mode: color-burn;
     pointer-events: none;
     z-index: -1;
@@ -184,6 +184,6 @@ header h1 {
 }
 
 .tilt-target {
-    transition: transform 0.05s ease-out;
+    transition: transform 0.1s ease-out;
     will-change: transform;
 }

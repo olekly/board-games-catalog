@@ -1,11 +1,46 @@
 // Board Games Database
 
+/*
+// Шаблон для нової гри:
+{
+    id: "game-id",
+    title: "Назва гри",
+    language: "Ukrainian",
+    players: { min: 1, max: 4 },
+    playTimeMinutes: 60,
+    price: "",
+    shortDescription: "Короткий опис",
+    fullDescription: [
+        "Абзац 1",
+        "Абзац 2"
+    ],
+    assets: {
+        cover: "./assets/game/cover.jpg",
+        rules: "./assets/game/rules.pdf",
+        logo: "./assets/game/logo.png",
+        gallery: []
+    },
+    themeClass: "theme-game",
+    expansions: [
+        {
+            id: "exp-id",
+            title: "Назва доповнення",
+            description: "Опис",
+            owned: true,
+            price: "",
+            cover: "./assets/game/exp.jpg"
+        }
+    ]
+}
+*/
+
 export const boardGames = [
     {   id: "dixit",
         title: "Dixit",
         language: "Language Independent",
         players: { min: 3, max: 8 },
         playTimeMinutes: 30,
+        price: "",
         
         shortDescription: "Чарівна гра на асоціації з неймовірно красивими та сюрреалістичними ілюстраціями.",
         
@@ -20,7 +55,7 @@ export const boardGames = [
             rules: "./assets/dixit/rules.pdf",
             logo: "./assets/dixit/logo.png",
             cardsPdf: "assets/dixit/dixit-cards.pdf",
-            gallery: ["./assets/dixit/cover.jpg", "./assets/dixit/gal2.png", "./assets/dixit/gal1.png"] 
+            gallery: ["./assets/dixit/cover.jpg", "./assets/dixit/gal2.png","./assets/dixit/gal3.jpg", "./assets/dixit/gal4.jpg", "./assets/dixit/gal1.png"] 
         },
 
         themeClass: "theme-dixit",
@@ -30,6 +65,7 @@ export const boardGames = [
                 id: "dixit-quest",
                 title: "Dixit: Quest",
                 description: "Відкрийте для себе казкову подорож у світ дитинства та безтурботності. <br> 84 нові карти з приголомшливими ілюстраціями від Марі Кардуа.",
+                price: "",
                 owned: true,
                 cardsPdf: "./assets/dixit/quest.pdf",
                 cover: "./assets/dixit/quest.png" 
@@ -38,6 +74,7 @@ export const boardGames = [
                 id: "dixit-journey",
                 title: "Dixit: Journey",
                 description: "Пориньте у таємничу та чарівну мандрівку, повну несподіваних відкриттів. <br> 84 нові карти з приголомшливими ілюстраціями від Ксав'є Коллета.",
+                price: "",
                 owned: false,
                 cardsPdf: "./assets/dixit/journey.pdf",
                 cover: "./assets/dixit/journey.png" 
@@ -46,6 +83,7 @@ export const boardGames = [
                 id: "dixit-origins",
                 title: "Dixit: Origins",
                 description: "Поверніться до витоків фантастичних світів та міфічних створінь. <br> 84 нові карти з приголомшливими ілюстраціями від Клемана Лефевра.",
+                price: "",
                 owned: false,
                 cardsPdf: "./assets/dixit/origins.pdf",
                 cover: "./assets/dixit/origins.png" 
@@ -54,6 +92,7 @@ export const boardGames = [
                 id: "dixit-daydreams",
                 title: "Dixit: Daydreams",
                 description: "Відчуйте емоції снів наяву. Сюрреалістичний світ, де фантазія межує з реальністю. <br> 84 нові карти з приголомшливими ілюстраціями від Франка Діона.",
+                price: "",
                 owned: false,
                 cardsPdf: "./assets/dixit/daydreams.pdf",
                 cover: "./assets/dixit/daydreams.png" 
@@ -62,6 +101,7 @@ export const boardGames = [
                 id: "dixit-memories",
                 title: "Dixit: Memories",
                 description: "Знайдіть яскраві спогади з дитинства в екзотичних та живих пейзажах. <br> 84 нові карти з приголомшливими ілюстраціями від Карін Хіндер та Жерома Пелісьє.",
+                price: "",
                 owned: false,
                 cardsPdf: "./assets/dixit/memories.pdf",
                 cover: "./assets/dixit/memories.png" 
@@ -70,6 +110,7 @@ export const boardGames = [
                 id: "dixit-revelations",
                 title: "Dixit: Revelations",
                 description: "Насолоджуйтесь магічними та витонченими ілюстраціями, натхненними античною міфологією. <br> 84 нові карти з приголомшливими ілюстраціями від Марини Кудре.",
+                price: "",
                 owned: true,
                 cardsPdf: "./assets/dixit/revelations.pdf",
                 cover: "./assets/dixit/revelations.png" 
@@ -78,6 +119,7 @@ export const boardGames = [
                 id: "dixit-harmonies",
                 title: "Dixit: Harmonies",
                 description: "Відкрийте, як контраст стає джерелом гармонії у цьому дивному та прекрасному світі. <br> 84 нові карти з приголомшливими ілюстраціями від Поля Ешегоєна.",
+                price: "",
                 owned: true,
                 cardsPdf: "./assets/dixit/harmonies.pdf",
                 cover: "./assets/dixit/harmonies.png"
@@ -86,6 +128,7 @@ export const boardGames = [
                 id: "dixit-anniversary",
                 title: "Dixit: Anniversary",
                 description: "Святкуємо 10-річчя Dixit казками та легендами з усього світу. <br> 84 нові карти з приголомшливими ілюстраціями від усіх ілюстраторів серії.",
+                price: "",
                 owned: false,
                 cardsPdf: "./assets/dixit/anniversary.pdf",
                 cover: "./assets/dixit/anniversary.png" 
@@ -94,6 +137,7 @@ export const boardGames = [
                 id: "dixit-mirrors",
                 title: "Dixit: Mirrors",
                 description: "Дозвольте собі здивуватися казковим відображенням нашого повсякденного життя. <br> 84 нові карти з приголомшливими ілюстраціями від Себастьяна Теллескі.",
+                price: "",
                 owned: false,
                 cardsPdf: "./assets/dixit/mirrors.pdf",
                 cover: "./assets/dixit/mirrors.png" 
@@ -108,6 +152,7 @@ export const boardGames = [
         language: "Language Independent",
         players: { min: 2, max: 6 },
         playTimeMinutes: 15,
+        price: "",
         
         shortDescription: "Швидка та весела вітчизняна паті-гейм гра про встановлення шалених рекордів.",
         
@@ -136,6 +181,7 @@ export const boardGames = [
         language: "Language Independent",
         players: { min: 2, max: 4 },
         playTimeMinutes: 60,
+        price: "",
         
         shortDescription: "Світовий хіт серед сімейних ігор, що поєднує логіку маджонгу та правила карткового рамі.",
         
@@ -146,11 +192,17 @@ export const boardGames = [
         ],
 
         assets: {
-            cover: "./assets/images/rummikub-cover.jpg",
-            rules: "./assets/rules/rummikub-rules.pdf",
+            cover: "./assets/rummikub/rum-front.png",
+            rules: "./assets/rummikub/rules.pdf",
+            logo: "./assets/rummikub/logo.png",
             gallery: [
-                "./assets/images/rummikub-gameplay-1.jpg",
-                "./assets/images/rummikub-gameplay-2.jpg"
+                "./assets/rummikub/rum-front.png",
+                "./assets/rummikub/gal3.jpg",
+                "./assets/rummikub/gal2.jpg",
+                "./assets/rummikub/gal4.jpg",
+                "./assets/rummikub/gal5.jpg",
+                "./assets/rummikub/gal6.jpg",
+                "./assets/rummikub/gal7.jpg"
             ]
         },
         themeClass: "theme-rummikub",

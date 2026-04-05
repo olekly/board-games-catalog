@@ -2,8 +2,9 @@
 // GAME PAGE BUILDER & INTERACTIVITY
 // =========================================
 import { boardGames } from './database.js';
-import { initConstellationCanvas, stopConstellationCanvas } from './dixit.js';
-import { initDixitParallax, stopDixitParallax } from './dixit.js';
+import { initGameThemeInteractions, cleanupGameThemeInteractions } from './utilities/theme-manager.js';
+import { initTiltEffect } from './utilities/tilt.js';
+import { initLightbox } from './utilities/lightbox.js';
 
 export function openGamePage(gameId) {
     const game = boardGames.find(g => g.id === gameId);
@@ -128,15 +129,14 @@ export function openGamePage(gameId) {
     // =========================================
     // 3. INITIALIZE INTERACTIVITY
     // =========================================
-    if (game.id === 'dixit') {
-        initConstellationCanvas('game-canvas-bg');
-        initDixitParallax();
-    }
+    initGameThemeInteractions(game.id);
+
+    initTiltEffect();
+    initLightbox(game.assets.gallery || []);
 
     // --- Back Button ---
     document.getElementById('back-btn').addEventListener('click', () => {
-        stopConstellationCanvas();
-        stopDixitParallax();
+        cleanupGameThemeInteractions();
         gamePageView.classList.add('hidden');
         catalogView.classList.remove('hidden');
         document.body.className = ''; 
@@ -162,101 +162,5 @@ export function openGamePage(gameId) {
 
         prevBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: -300, behavior: 'smooth' }));
         nextBtn.addEventListener('click', () => scrollContainer.scrollBy({ left: 300, behavior: 'smooth' }));
-    }
-
-    // --- 3D Tilt Effect ---
-    document.querySelectorAll('.tilt-wrapper').forEach(wrapper => {
-        const target = wrapper.querySelector('.tilt-target');
-        if (!target) return;
-        
-        wrapper.addEventListener('mousemove', (e) => {
-            const rect = wrapper.getBoundingClientRect();
-            const x = e.clientX - rect.left; const y = e.clientY - rect.top;
-            const rotateX = ((y - rect.height/2) / (rect.height/2)) * -15; 
-            const rotateY = ((x - rect.width/2) / (rect.width/2)) * 15;
-            target.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        wrapper.addEventListener('mouseleave', () => {
-            target.style.transform = `scale(1) rotateX(0) rotateY(0)`;
-        });
-    });
-
-    // --- Lightbox ---
-    const lightbox = document.getElementById('lightbox-modal');
-    if (lightbox) {
-        const lbImg = document.getElementById('lb-image');
-        let currentLbIndex = 0;
-        let isLightboxTiltable = false;
-
-        const updateLightbox = () => { 
-            lbImg.src = game.assets.gallery[currentLbIndex]; 
-            lbImg.classList.remove('lightbox-anim');
-            void lbImg.offsetWidth; 
-            lbImg.classList.add('lightbox-anim');
-            lbImg.style.transform = `scale(1) rotateX(0) rotateY(0)`;
-            setTimeout(() => lbImg.classList.remove('lightbox-anim'), 300);
-        };
-
-        document.querySelectorAll('.gallery-thumb').forEach(thumb => {
-            thumb.addEventListener('click', (e) => {
-                currentLbIndex = parseInt(e.target.dataset.index);
-                isLightboxTiltable = (currentLbIndex === 0);
-                document.getElementById('lb-prev').style.display = 'flex';
-                document.getElementById('lb-next').style.display = 'flex';
-                updateLightbox();
-                lightbox.classList.remove('hidden');
-            });
-        });
-
-        document.querySelectorAll('.exp-lightbox-trigger').forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                lbImg.src = e.target.src; 
-                isLightboxTiltable = true;
-
-                document.getElementById('lb-prev').style.display = 'none';
-                document.getElementById('lb-next').style.display = 'none';
-
-                lbImg.classList.remove('lightbox-anim');
-                void lbImg.offsetWidth; 
-                lbImg.classList.add('lightbox-anim');
-                lbImg.style.transform = `scale(1) rotateX(0) rotateY(0)`;
-                setTimeout(() => lbImg.classList.remove('lightbox-anim'), 300);
-                lightbox.classList.remove('hidden');
-            });
-        });
-        
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox || e.target.id === 'lb-tilt-wrapper' || e.target.id === 'lb-close') {
-                lightbox.classList.add('hidden');
-            }
-        });
-
-        document.getElementById('lb-prev').addEventListener('click', () => {
-            currentLbIndex = (currentLbIndex - 1 + game.assets.gallery.length) % game.assets.gallery.length;
-            isLightboxTiltable = (currentLbIndex === 0);
-            updateLightbox();
-        });
-        
-        document.getElementById('lb-next').addEventListener('click', () => {
-            currentLbIndex = (currentLbIndex + 1) % game.assets.gallery.length;
-            isLightboxTiltable = (currentLbIndex === 0);
-            updateLightbox();
-        });
-
-        lightbox.addEventListener('mousemove', (e) => {
-            if (!isLightboxTiltable) return; 
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            const x = e.clientX; 
-            const y = e.clientY;
-            const rotateX = ((y - centerY) / centerY) * -15; 
-            const rotateY = ((x - centerX) / centerX) * 15;
-            lbImg.style.transform = `scale(1.02) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        lightbox.addEventListener('mouseleave', () => {
-            if (!isLightboxTiltable) return;
-            lbImg.style.transform = `scale(1) rotateX(0) rotateY(0)`;
-        });
     }
 }
