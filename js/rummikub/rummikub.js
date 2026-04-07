@@ -44,7 +44,7 @@ function initTableBackground() {
         if (!ticking) {
             window.requestAnimationFrame(() => {
                 const scrolled = window.scrollY;
-                tableBg.style.transform = `perspective(1200px) rotateX(45deg) translateY(-${scrolled * 0.4}px)`;
+                tableBg.style.transform = `perspective(1200px) rotateX(45deg) translateY(-${scrolled * 0.3}px)`;
                 ticking = false;
             });
             ticking = true;

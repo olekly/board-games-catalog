@@ -3,7 +3,21 @@
 // =========================================
 import { openGamePage } from './game-page.js';
 
+// Зберігаємо посилання на поточні відрендерені компоненти для їх якісного очищення
+let activeCards = [];
+
+export function cleanupCatalogView() {
+    const contentArea = document.getElementById('content-area');
+    if (contentArea) contentArea.innerHTML = '';
+    
+    // Явне видалення карточок для допомоги збирачу сміття (Garbage Collector)
+    activeCards.forEach(card => card.remove());
+    activeCards = [];
+}
+
 export function renderCatalog(gamesArray) {
+
+    
     const contentArea = document.getElementById('content-area');
     if (!contentArea) return;
 
@@ -44,6 +58,7 @@ export function renderCatalog(gamesArray) {
         });
 
         grid.appendChild(card);
+        activeCards.push(card); // зберігаємо картокчу для подальшого очищення
     });
 
     contentArea.appendChild(grid);

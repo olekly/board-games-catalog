@@ -53,7 +53,7 @@ body.theme-rummikub .card-stats span {
     z-index: -1;
     pointer-events: none;
     will-change: transform;
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform 0s cubic-bezier(0, 0, 0, 0);
 }
 
 /* --- Layout --- */

@@ -1,0 +1,432 @@
+/* catalog.css */
+:root {
+  /* Тепла дерев'яна палітра "Craft/Cartoon" */
+  --wood-bg: #ca631e; /* Основний теплий колір дошок */
+  --wood-gap: #a04419; /* Темні щілини */
+  --wood-highlight: rgba(255, 255, 255, 0.25); /* Мультяшний блік зліва */
+  --wood-shadow: rgba(0, 0, 0, 0.15); /* Об'ємна тінь справа */
+}
+
+#catalog-view {
+  position: fixed; /* Fixed "вириває" контейнер з .app-container і прив'язує строго до вікна браузера */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Від краю до краю екрану */
+  height: 100vh; /* Повністю покриває висоту вікна */
+  padding: 20px; /* Відступ знову звичайний, бо футер повернеться до потоку */
+  box-sizing: border-box;
+  background-color: var(--wood-bg);
+  z-index: 10; /* Вищий за бекграунд, але при хованні .hidden - зникатиме */
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  
+  /* Використовуємо надану текстуру та змішуємо її з коричневим кольором */
+  background-image: url('../assets/textures/catalog-table1.jpg');
+  background-size: 100vw auto; /* Ширина на весь екран, висота пропорційна (без стиснення/розтягування по всій висоті скролу) */
+  background-repeat: repeat; /* Розмножуємо зображення вниз (та вбік, якщо потрібно) */
+  background-attachment: local; /* Скролиться синхронно з текстом */
+  background-blend-mode: multiply; /* Змішуємо чорно-білу текстуру з var(--wood-bg) */
+  
+  /* Тінь-віньєтку перенесено в ::after, щоб вона була суто на екрані і не залежала від контенту/фону */
+
+  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff; /* Світлий текст на темному дереві краще читається */
+}
+
+/* Статична тінь поверх екрану (не рухається і не повторюється) */
+#catalog-view::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  box-shadow: inset 0 0 150px rgba(50, 20, 5, 0.8), inset 0 0 40px rgba(20, 10, 0, 0.5);
+  pointer-events: none; /* Дозволяє клікати 'крізь' тінь */
+  z-index: 50; /* Вище за всі картки, але тільки в межах #catalog-view */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================
+   CATALOG CARDS CONTAINER
+   ========================================= */
+#content-area {
+  position: relative;
+  z-index: 20; /* Розміщуємо картки вище за футер */
+  flex-grow: 1; /* Завжди заповнює вільний простір, штовхаючи футер вниз */
+  flex-shrink: 0;
+}
+
+/* =========================================
+   TABLE EDGE FOOTER (MESSY GAME END)
+   ========================================= */
+
+.table-edge-footer {
+  position: relative; /* Повертаємо вниз сторінки - видно тільки при доскролюванні */
+  width: 100%;
+  height: 270px;
+  margin-top: 40px;
+  margin-bottom: -20px;
+  overflow: hidden; /* Обрізаємо все, що виходить за межі футера (для GameBoy) */
+  pointer-events: none; /* Щоб кліки проходили крізь порожній простір футера */
+  z-index: 5;
+  flex-shrink: 0; /* Щоб футер не сплющувався */
+}
+
+/* Спільні стилі для всіх розкиданих об'єктів */
+.scattered-item {
+  position: absolute;
+  pointer-events: auto; /* Дозволяємо взаємодію з самими об'єктами */
+  box-shadow: 3px 8px 15px rgba(0, 0, 0, 0.4); /* Глибока тінь для об'єму на столі */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scattered-item:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 5px 12px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Загальний вигляд заглушок (доки немає текстур) */
+.placeholder {
+  border: 1px dashed rgba(255, 255, 255, 0.5);
+}
+
+/* 1. Пачка карт (сорочкою догори) */
+.card-deck {
+  width: 65px;
+  height: 95px;
+  background-color: #2c3e50; /* Темна сорочка */
+  border: 3px solid #ecf0f1 !important;
+  border-radius: 6px;
+  bottom: 40px;
+  left: 10%;
+  transform: rotate(-12deg);
+  /* Ефект складеної колоди */
+  box-shadow: 
+    -1px 2px 0 #ecf0f1, -2px 3px 0 #2c3e50,
+    -2px 4px 0 #ecf0f1, -3px 5px 0 #2c3e50,
+    -4px 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 2. Дерев'яні міпли з різних ігор */
+.meeple {
+  width: 25px;
+  height: 30px;
+  border-radius: 12px 12px 2px 2px; /* Примітивна форма міпла */
+  border: 1px solid rgba(0,0,0,0.2) !important;
+}
+
+.meeple-1 {
+  background-color: #e74c3c;
+  bottom: 80px;
+  left: 28%;
+  transform: rotate(35deg);
+}
+
+.meeple-2 {
+  background-color: #f1c40f;
+  bottom: 45px;
+  left: 32%;
+  transform: rotate(-60deg);
+}
+
+.meeple-3 {
+  background-color: #3498db;
+  bottom: 110px;
+  left: 25%;
+  transform: rotate(15deg);
+}
+
+/* 3. Розсипані металеві монетки */
+.coin {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #d4af37; /* Металевий блиск */
+  border: 2px solid #b8860b !important;
+}
+
+.coin-1 { bottom: 65px; right: 45%; transform: rotate(20deg); }
+.coin-2 { bottom: 90px; right: 40%; transform: rotate(-15deg); }
+.coin-3 { bottom: 35px; right: 48%; transform: rotate(75deg); }
+
+/* 4. Забутий олівець */
+.pencil {
+  width: 140px;
+  height: 12px;
+  background-color: #f1c40f;
+  border-radius: 2px;
+  bottom: 120px;
+  right: 28%;
+  transform: rotate(18deg);
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  /* Імітація дерев'яної частини та стержня */
+  background-image: linear-gradient(90deg, #f1c40f 85%, #f5deb3 85%, #f5deb3 95%, #333 95%);
+}
+
+/* 5. Аркуш для підрахунку очок */
+.score-sheet {
+  width: 110px;
+  height: 150px;
+  background-color: #fdf5e6; /* Колір паперу */
+  bottom: 25px;
+  right: 20%;
+  transform: rotate(-8deg);
+  border: 1px solid #dcdcdc !important;
+  /* Імітація ліній записів */
+  background-image: repeating-linear-gradient(rgba(0,0,0,0.1) 0, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 12px);
+}
+
+/* 6. GameBoy (посунутий у правий кут) */
+.gameboy {
+  width: 170px;
+  height: 270px;
+  background-color: #e39c17; /* Більш помаранчево-золотий колір корпусу */
+  border: 1px solid #7a4f00 !important;
+  border-radius: 10px 10px 30px 10px;
+  bottom: 0;
+  right: 4%;
+  transform: translateY(170px) rotate(-10deg);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    -1px 1px 0 #b87700, -2px 2px 0 #b87700, -3px 3px 0 #b87700,
+    -4px 4px 0 #b87700, -5px 5px 0 #b87700, -6px 6px 0 #b87700,
+    -7px 7px 0 #b87700, -8px 8px 0 #8f5c00, -9px 9px 0 #8f5c00, -10px 10px 0 #8f5c00,
+    inset 4px 4px 0 rgba(255,255,255,0.4),
+    inset -2px -2px 5px rgba(0,0,0,0.3),
+    -15px 25px 20px rgba(0,0,0,0.6);
+  padding: 18px 15px 15px 15px;
+  box-sizing: border-box;
+}
+
+/* Деталізації на самому корпусі: заглибини на бічній грані (перекривають тінь) */
+.gameboy::before {
+  content: ""; position: absolute;
+  top: 10%; left: -6px;
+  width: 6px; height: 75%;
+  /* Малюємо горизонтальні темні лінії (заглибини) на бічній тіні */
+  background: repeating-linear-gradient(
+    transparent, transparent 15px, 
+    rgba(90, 66, 11, 0.5) 15px, rgba(90, 66, 11, 0.5) 18px
+  );
+  z-index: -1; /* щоб бути над основною тінню, але під самим геймбоєм */
+  transform: skewY(45deg);
+}
+
+/* Лінія заглибини зверху та обабіч з відблиском (заворот на краю) */
+.gb-top-groove {
+  position: absolute; top: 8px; left: 8px; right: 8px; height: 100%;
+  border-top: 2px solid rgba(0,0,0,0.3);
+  border-left: 2px solid rgba(0,0,0,0.3);
+  border-right: 2px solid rgba(255,255,255,0.4); /* права стінка заглибини ловить світло (бо світло зліва вгорі) */
+  border-radius: 6px 6px 0 0;
+  pointer-events: none;
+  /* Лінія світла прямо під темною лінією для об'єму зверху/зліва, а для правої - навпаки темна тінь */
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.5), inset 2px 0 0 rgba(255,255,255,0.5), inset -2px 0 0 rgba(0,0,0,0.3);
+}
+
+/* Вертикальні заглибини у лівому куті */
+.gb-corner-grooves {
+  position: absolute; top: 0; left: 15px;
+  width: 15px; height: 11px;
+  border-left: 2px solid rgba(0,0,0,0.2);
+  border-right: 2px solid rgba(0,0,0,0.2);
+  box-shadow: 1px 0 0 rgba(255,255,255,0.5), inset 1px 0 0 rgba(255,255,255,0.5);
+}
+
+.gameboy:hover {
+  /* При наведенні виїжджає вгору і вирівнюється */
+  transform: translateY(20px) rotate(0deg);
+  z-index: 100;
+  /* Підтягуємо тінь під час 'підняття' */
+  box-shadow: 
+    -1px 1px 0 #b87700, -2px 2px 0 #b87700, -3px 3px 0 #b87700,
+    -4px 4px 0 #b87700, -5px 5px 0 #b87700, -6px 6px 0 #b87700,
+    -7px 7px 0 #b87700, -8px 8px 0 #8f5c00, -9px 9px 0 #8f5c00, -10px 10px 0 #8f5c00,
+    inset 4px 4px 0 rgba(255,255,255,0.4),
+    inset -2px -2px 5px rgba(0,0,0,0.3),
+    -10px 20px 25px rgba(0,0,0,0.5);
+}
+
+.gb-screen-bezel {
+  background-color: #4a4d52;
+  border-radius: 10px 10px 20px 10px;
+  padding: 15px 15px 8px 15px;
+  position: relative;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.8);
+}
+
+.gb-screen {
+  background-color: #8bac0f; /* Класичний зелений колір екрану */
+  border: 2px solid #303e1e;
+  height: 90px;
+  width: 100%;
+  position: relative;
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3);
+  /* Піксельна сітка екрану */
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 3px, rgba(48, 62, 30, 0.05) 3px, rgba(48, 62, 30, 0.05) 4px
+  ),
+  repeating-linear-gradient(
+    90deg, transparent, transparent 3px, rgba(48, 62, 30, 0.05) 3px, rgba(48, 62, 30, 0.05) 4px
+  );
+}
+
+/* Індикатор батареї */
+.gb-power {
+  position: absolute;
+  top: 35px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
+  background-color: #ff3b3b;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #ff3b3b;
+}
+
+/* CSS Тетріс графіка (L-блок та залишки внизу) на екрані */
+.tetris-pixel {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background-color: #303e1e;
+  border: 1px solid rgba(139, 172, 15, 0.4); /* розділові лінії між блоками */
+  box-sizing: border-box;
+}
+
+.tetris-grid {
+  position: relative;
+  width: 100%; height: 100%;
+}
+
+.gb-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 25px;
+  padding: 0 5px;
+}
+
+.gb-dpad {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  /* Додамо загальну тінь хрестовині через drop-shadow, щоб деталі не накладались */
+  filter: drop-shadow(-2px 3px 2px rgba(0,0,0,0.6));
+}
+
+/* Кругле заглиблення під D-Pad - як на референсі */
+.gb-dpad::before {
+  content: ""; position: absolute;
+  top: -6px; left: -6px; width: 52px; height: 52px;
+  background: rgba(180, 100, 0, 0.4);
+  box-shadow: inset 1px 2px 4px rgba(0,0,0,0.5), inset -1px -1px 2px rgba(255,255,255,0.4);
+  border-radius: 50%; z-index: 0;
+}
+
+/* Кругла ямка в центрі самої хрестовини */
+.gb-dpad::after {
+  content: ""; position: absolute;
+  top: 14px; left: 14px; width: 12px; height: 12px;
+  background: #252525;
+  border-radius: 50%;
+  box-shadow: inset 1px 2px 3px rgba(0,0,0,0.8), inset -1px -1px 1px rgba(255,255,255,0.1);
+  z-index: 2;
+}
+
+.d-pad-v {
+  position: absolute;
+  top: 0; left: 13px;
+  width: 14px; height: 40px;
+  background-color: #2b2b2b;
+  border-radius: 2px;
+  /* Прибрали жорстку тінь, щоб перетин з d-pad-h був повністю безшовним */
+  box-shadow: none;
+  z-index: 1;
+}
+
+/* Вигравіювані стрілочки (вгору/вниз) */
+.d-pad-v::before { content: ""; position: absolute; top: 3px; left: 3px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 5px solid rgba(0,0,0,0.8); z-index: 2; }
+.d-pad-v::after { content: ""; position: absolute; bottom: 3px; left: 3px; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid rgba(0,0,0,0.8); z-index: 2; }
+
+.d-pad-h {
+  position: absolute;
+  top: 13px; left: 0;
+  width: 40px; height: 14px;
+  background-color: #2b2b2b;
+  border-radius: 2px;
+  box-shadow: none;
+  z-index: 1;
+}
+
+/* Вигравіювані стрілочки (вліво/вправо) */
+.d-pad-h::before { content: ""; position: absolute; left: 3px; top: 3px; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-right: 5px solid rgba(0,0,0,0.8); }
+.d-pad-h::after { content: ""; position: absolute; right: 3px; top: 3px; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 5px solid rgba(0,0,0,0.8); }
+
+.gb-buttons {
+  position: relative;
+  width: 60px; height: 30px;
+  margin-top: 15px;
+}
+
+/* Овальна заглибина для A та B */
+.gb-buttons::before {
+  content: ""; position: absolute;
+  top: -5px; left: -8px; right: -6px; bottom: -0px; /* Більша ямка з простором довкола кнопок */
+  background-color: rgba(180, 100, 0, 0.4);
+  border-radius: 22px;
+  box-shadow: inset 2px 3px 5px rgba(0,0,0,0.5), inset -1px -1px 2px rgba(255,255,255,0.3);
+  transform: rotate(-28deg);
+  z-index: 0;
+}
+
+.gb-btn {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: #901f46; /* темно-рожевий/багряний */
+  border-radius: 50%;
+  /* Робимо їх значно випуклішими (3D блік) */
+  box-shadow: inset 2px 2px 3px rgba(255,100,150,0.6), inset -2px -2px 4px rgba(0,0,0,0.5), -1px 3px 4px rgba(0,0,0,0.6);
+  z-index: 1;
+  display: flex;
+  align-items: center; justify-content: center;
+  /* Текст вирівнюється ідеально горизонтально, компенсуючи загальну ротацію капсули (якщо вона є, але капсула сама по собі не rotated, лише її before) */
+  color: #5c112a;
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+  user-select: none;
+}
+
+/* Розміщуємо безпосередньо над капсулою (що повернута на -25deg) */
+.gb-btn.b-btn {
+  bottom: -2px; left: 2px;
+}
+.gb-btn.a-btn {
+  top: -8px; right: 4px;
+}
+
+/* Start/Select */
+.gb-start-select {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Більша відстань між ними */
+  margin-top: 30px; /* Опущені значно нижче від основних кнопок */
+}
+
+.ss-btn {
+  width: 35px;
+  height: 10px;
+  background-color: #4a4d52;
+  border-radius: 5px;
+  /* Горизонтальні рівні кнопки (без rotate) */
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(0,0,0,0.4), -1px 2px 2px rgba(0,0,0,0.6);
+}
