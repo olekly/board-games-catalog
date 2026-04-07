@@ -91,7 +91,7 @@ export function openGamePage(gameId) {
                         <h3>${exp.title}</h3>
                         <p>${exp.description}</p>
                         <div class="exp-meta">
-                            ${exp.owned ? '<span class="badge owned">В колекції</span>' : '<span class="badge wishlist">У планах</span>'}
+                            ${exp.owned ? '<span class="badge owned">В колекції</span>' : '<span class="badge wishlist"></span>'}
                             ${expButton}
                         </div>
                     </div>

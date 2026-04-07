@@ -97,7 +97,7 @@ body.theme-rummikub .game-profile-cover {
     position: absolute;
     top: 50%; left: 50%;
     width: 312px; height: 516px;
-    transform: translate(-50%, -50%) translateZ(-2px);
+    transform: translate(-50%, -50%) translateZ(-15px);
     background-color: rgba(0,0,0,0.85); 
     box-shadow: 0 0 50px 30px rgba(0,0,0,0.85);
     border-radius: 4px;
@@ -389,7 +389,7 @@ body.theme-rummikub .gallery-section h2:hover {
     background: rgba(0,0,0,0.6);
     box-shadow: 0 0 10px 5px rgba(0,0,0,0.6);
     border-radius: 6px;
-    transform: translate(-50%, -50%) translateZ(-5px);
+    transform: translate(-50%, -50%) translateZ(-10px);
     transition: opacity 1s, transform 1s, box-shadow 1s;
 }
 

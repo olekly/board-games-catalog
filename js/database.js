@@ -3,47 +3,111 @@
 /*
 // Шаблон для нової гри:
 {
-    id: "game-id",
-    title: "Назва гри",
-    language: "Ukrainian",
-    players: { min: 1, max: 4 },
-    playTimeMinutes: 60,
-    price: "",
-    shortDescription: "Короткий опис",
-    fullDescription: [
-        "Абзац 1",
-        "Абзац 2"
-    ],
-    assets: {
-        cover: "./assets/game/cover.jpg",
-        rules: "./assets/game/rules.pdf",
-        logo: "./assets/game/logo.png",
-        gallery: []
-    },
-    themeClass: "theme-game",
-    expansions: [
-        {
-            id: "exp-id",
-            title: "Назва доповнення",
-            description: "Опис",
-            owned: true,
-            price: "",
-            cover: "./assets/game/exp.jpg"
-        }
-    ]
-}
+        // -----------------------------------------
+        // 1. ОСНОВНА ІНФОРМАЦІЯ
+        // -----------------------------------------
+        id: 'game-id',
+        title: 'Назва гри',
+        themeClass: 'theme-gameid', // Клас для CSS-стилів сторінки
+        price: 0, 
+        
+        // -----------------------------------------
+        // 2. ГЕЙМПЛЕЙ ТА ФІЛЬТРИ
+        // -----------------------------------------
+        players: { min: 2, max: 4 }, // Мінімальна та максимальна кількість гравців
+        language: 'Українська', // Мова гри або 'Language Independent'
+        playTimeMinutes: 60, // Очікуваний час партії в хвилинах
+        hardnes: 2.5, // Складність від 1.0 до 5.0 (наприклад, за шкалою BGG)
+        tags: ['strategy', 'family', 'cardgame', 'party'], // Теги для категоризації та фільтрів
+        
+        // -----------------------------------------
+        // 3. ФІЗИЧНІ ПАРАМЕТРИ
+        // -----------------------------------------
+        dimensions: { w: 0, h: 0, d: 0 }, // Розмір коробки в міліметрах (ширина, висота, глибина)
+        weightGrams: 0, // Вага коробки в грамах
+        hasBling: false, // Наявність преміум-компонентів, органайзерів, металевих монет
+        components: {
+            cards: [
+                { size: "63.5x88", count: 100, sleeved: false } // Формат та кількість карт, інформація про протектори
+            ],              
+            other: 'Ігрове поле, жетони, міпли, кубики, правила' // Інші компоненти списком або рядком
+        },
+
+        // -----------------------------------------
+        // 4. ТЕКСТИ
+        // -----------------------------------------
+        shortDescription: 'Короткий опис або слоган гри (відображатиметься в каталозі).', 
+        fullDescription: [          
+            'Перший абзац розширеного опису. Вступна інформація про сеттинг.',
+            'Другий абзац розширеного опису. Основні механіки та мета гри.',
+            'Третій абзац з додатковими деталями або цікавими фактами про ігровий процес.'
+        ],
+
+        // -----------------------------------------
+        // 5. МЕДІА
+        // -----------------------------------------
+        assets: {
+            logo: './assets/gameid/logo.png', // Логотип гри (опціонально)
+            cover: './assets/gameid/box-front.jpg', // Фото обкладинки коробки
+            rules: './assets/gameid/rules.pdf', // PDF-файл з правилами
+            cardsPdf: '', // Опціональний PDF-файл з прикладами карток // Додаткові файли, якщо є                           
+            gallery: [ // Фотографії ігрового процесу або компонентів                                
+                './assets/gameid/gameplay-1.jpg',
+                './assets/gameid/gameplay-2.jpg'
+            ]
+        },
+
+        // -----------------------------------------
+        // 6. СТАТИСТИКА ТА ПАСХАЛКИ
+        // -----------------------------------------
+        lastPlayedDate: '2024-01-01', // Дата останньої зіграної партії
+        houseRules: [ // Домашні правила             
+            'Опис правила, за яким ви зазвичай граєте або змінили під себе.'
+        ],
+        hallOfFame: [ // Рекорди та досягнення              
+            { name: 'Ім\'я Гравця', score: 100, date: '2024-01-01' }
+        ],
+
+        // -----------------------------------------
+        // 7. ДОПОВНЕННЯ (опціонально)
+        // -----------------------------------------
+        expansions: [
+            {
+                id: "exp-id",
+                title: "Назва доповнення",
+                description: "Короткий опис нововведень доповнення.",
+                price: 0,
+                owned: false, // В наявності?
+                planned: false, // Планується до покупки / у вішлісті?
+                cover: "./assets/gameid/exp-cover.png" 
+            }
+        ]
+    }
 */
 
 export const boardGames = [
     {   id: "dixit",
         title: "Dixit",
-        language: "Language Independent",
+        themeClass: "theme-dixit",
+        price: 28.99,
+
         players: { min: 3, max: 8 },
+        language: "Language Independent",
         playTimeMinutes: 30,
-        price: "",
+        hardnes: 1.19,
+        tags: ['party', 'association', 'art', 'family', 'creative'],
+
+        dimensions: { w: 0, h: 0, d: 0 },   //fix that
+        weightGrams: 0,                     //fix that
+        hasBling: false,            
+        components: {
+            cards: [
+                { size: "80x120", count: 84, sleeved: false } 
+            ],              
+            other: '8 дерев\'яних кроликів, 8 жетонів голосування, поле' 
+        },
         
-        shortDescription: "Чарівна гра на асоціації з неймовірно красивими та сюрреалістичними ілюстраціями.",
-        
+        shortDescription: "Гра на асоціації з красивими та сюрреалістичними ілюстраціями.",
         fullDescription: [
             "Dixit — це класична, проста та захоплююча гра на асоціації, де ваша фантазія створює історію. Головний компонент гри — це великі карти з унікальними, багатозначними малюнками.",
             "Кожного раунду один з гравців стає оповідачем. Він обирає одну зі своїх карт, придумує до неї асоціацію (це може бути слово, фраза, цитата з пісні чи навіть звук) і кладе її долілиць. Інші гравці шукають у своїх картах ту, що найбільше підходить під цю асоціацію, і теж викладають її.",
@@ -55,18 +119,37 @@ export const boardGames = [
             rules: "./assets/dixit/rules.pdf",
             logo: "./assets/dixit/logo.png",
             cardsPdf: "assets/dixit/dixit-cards.pdf",
-            gallery: ["./assets/dixit/cover.jpg", "./assets/dixit/gal2.png","./assets/dixit/gal3.jpg", "./assets/dixit/gal4.jpg", "./assets/dixit/gal1.png"] 
+            gallery: ["./assets/dixit/cover.jpg",
+                      "./assets/dixit/gal2.png", 
+                      "./assets/dixit/gal3.jpg", 
+                      "./assets/dixit/gal4.jpg", 
+                      "./assets/dixit/gal1.png"] 
         },
 
-        themeClass: "theme-dixit",
-        
+        lastPlayedDate: '2024-04-01',               
+        houseRules: [               
+            'Можна зіграти два кола, щоб кожен встиг побути оповідачем.'
+        ],
+        hallOfFame: [],
+
         expansions: [
+            {
+                id: "dixit-odyssey",
+                title: "Dixit: Odyssey",
+                description: "Дозволяє грати компанією до 12 людей. <br> 84 нові карти з приголомшливими ілюстраціями від Жан-Люї Руб'є.",
+                price: "",
+                owned: false,
+                planned: true,
+                cardsPdf: "./assets/dixit/odyssey.pdf",
+                cover: "./assets/dixit/odyssey.png" 
+            },
             {
                 id: "dixit-quest",
                 title: "Dixit: Quest",
                 description: "Відкрийте для себе казкову подорож у світ дитинства та безтурботності. <br> 84 нові карти з приголомшливими ілюстраціями від Марі Кардуа.",
-                price: "",
+                price: 19.99,
                 owned: true,
+                planned: true,
                 cardsPdf: "./assets/dixit/quest.pdf",
                 cover: "./assets/dixit/quest.png" 
             },
@@ -76,6 +159,7 @@ export const boardGames = [
                 description: "Пориньте у таємничу та чарівну мандрівку, повну несподіваних відкриттів. <br> 84 нові карти з приголомшливими ілюстраціями від Ксав'є Коллета.",
                 price: "",
                 owned: false,
+                planned: true,
                 cardsPdf: "./assets/dixit/journey.pdf",
                 cover: "./assets/dixit/journey.png" 
             },
@@ -85,6 +169,7 @@ export const boardGames = [
                 description: "Поверніться до витоків фантастичних світів та міфічних створінь. <br> 84 нові карти з приголомшливими ілюстраціями від Клемана Лефевра.",
                 price: "",
                 owned: false,
+                planned: true,
                 cardsPdf: "./assets/dixit/origins.pdf",
                 cover: "./assets/dixit/origins.png" 
             },
@@ -94,6 +179,7 @@ export const boardGames = [
                 description: "Відчуйте емоції снів наяву. Сюрреалістичний світ, де фантазія межує з реальністю. <br> 84 нові карти з приголомшливими ілюстраціями від Франка Діона.",
                 price: "",
                 owned: false,
+                planned: true,
                 cardsPdf: "./assets/dixit/daydreams.pdf",
                 cover: "./assets/dixit/daydreams.png" 
             },
@@ -103,6 +189,7 @@ export const boardGames = [
                 description: "Знайдіть яскраві спогади з дитинства в екзотичних та живих пейзажах. <br> 84 нові карти з приголомшливими ілюстраціями від Карін Хіндер та Жерома Пелісьє.",
                 price: "",
                 owned: false,
+                planned: true,
                 cardsPdf: "./assets/dixit/memories.pdf",
                 cover: "./assets/dixit/memories.png" 
             },
@@ -110,8 +197,9 @@ export const boardGames = [
                 id: "dixit-revelations",
                 title: "Dixit: Revelations",
                 description: "Насолоджуйтесь магічними та витонченими ілюстраціями, натхненними античною міфологією. <br> 84 нові карти з приголомшливими ілюстраціями від Марини Кудре.",
-                price: "",
+                price: 19.99,
                 owned: true,
+                planned: true,
                 cardsPdf: "./assets/dixit/revelations.pdf",
                 cover: "./assets/dixit/revelations.png" 
             },
@@ -119,8 +207,9 @@ export const boardGames = [
                 id: "dixit-harmonies",
                 title: "Dixit: Harmonies",
                 description: "Відкрийте, як контраст стає джерелом гармонії у цьому дивному та прекрасному світі. <br> 84 нові карти з приголомшливими ілюстраціями від Поля Ешегоєна.",
-                price: "",
+                price: 19.99,
                 owned: true,
+                planned: true,
                 cardsPdf: "./assets/dixit/harmonies.pdf",
                 cover: "./assets/dixit/harmonies.png"
             },
@@ -130,6 +219,7 @@ export const boardGames = [
                 description: "Святкуємо 10-річчя Dixit казками та легендами з усього світу. <br> 84 нові карти з приголомшливими ілюстраціями від усіх ілюстраторів серії.",
                 price: "",
                 owned: false,
+                planned: true,
                 cardsPdf: "./assets/dixit/anniversary.pdf",
                 cover: "./assets/dixit/anniversary.png" 
             },
@@ -139,6 +229,7 @@ export const boardGames = [
                 description: "Дозвольте собі здивуватися казковим відображенням нашого повсякденного життя. <br> 84 нові карти з приголомшливими ілюстраціями від Себастьяна Теллескі.",
                 price: "",
                 owned: false,
+                planned: true,
                 cardsPdf: "./assets/dixit/mirrors.pdf",
                 cover: "./assets/dixit/mirrors.png" 
             }
@@ -146,41 +237,12 @@ export const boardGames = [
     },
 
 
-    {
-        id: "redkordsmeny",
-        title: "Редькордсмен",
-        language: "Language Independent",
-        players: { min: 2, max: 6 },
-        playTimeMinutes: 15,
-        price: "",
-        
-        shortDescription: "Швидка та весела вітчизняна паті-гейм гра про встановлення шалених рекордів.",
-        
-        fullDescription: [
-            "«Рекордсмени» — це динамічна настільна гра для веселої компанії, де вам доведеться мірятися силами, швидкістю та кмітливістю у найнесподіваніших дисциплінах.",
-            "Кожен раунд гравці отримують нові, іноді дуже кумедні завдання і намагаються побити рекорди одне одного. Правила пояснюються буквально за хвилину.",
-            "Гра ідеально підходить для вечірок, поїздок в потязі або просто веселого вечора в колі сім'ї та друзів."
-        ],
-
-        assets: {
-            cover: "./assets/images/rekordsmeny-cover.jpg",
-            rules: "./assets/rules/rekordsmeny-rules.pdf",
-            gallery: [
-                "./assets/images/rekordsmeny-gameplay-1.jpg"
-            ]
-        },
-        themeClass: "theme-rekordsmeny",
-        
-        expansions: [] 
-    },
-
-
-    {
-        id: "rummikub",
+    {   id: "rummikub",
         title: "Rummikub",
         language: "Language Independent",
         players: { min: 2, max: 4 },
-        playTimeMinutes: 60,
+        playTimeMinutes: 45,
+        hardnes: 2.5,
         price: "",
         
         shortDescription: "Світовий хіт серед сімейних ігор, що поєднує логіку маджонгу та правила карткового рамі.",
