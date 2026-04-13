@@ -63,3 +63,108 @@ export function renderCatalog(gamesArray) {
 
     contentArea.appendChild(grid);
 }
+
+// =========================================
+// THEME & LIGHTING MODULE
+// =========================================
+
+let updateFlashlightFn = null;
+
+export function forceDisableBlackout() {
+    const body = document.body;
+    if (body.classList.contains('blackout')) {
+        body.classList.remove('blackout');
+        if (updateFlashlightFn) {
+            document.removeEventListener('mousemove', updateFlashlightFn);
+        }
+        body.style.removeProperty('--mouse-x');
+        body.style.removeProperty('--mouse-y');
+    }
+}
+
+export function restoreCatalogTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeToggle = document.getElementById('theme-toggle-chk');
+    document.body.className = ''; // очистимо від усіх класів
+    
+    if (savedTheme === 'dark') {
+        if(themeToggle) themeToggle.checked = true;
+        document.body.classList.add('dark-theme');
+    } else {
+        if(themeToggle) themeToggle.checked = false;
+        document.body.classList.remove('dark-theme');
+    }
+    forceDisableBlackout();
+}
+
+export function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle-chk');
+    const lampButton = document.querySelector('.lamp-button');
+    const body = document.body;
+
+    if (!themeToggle || !lampButton) return;
+
+    restoreCatalogTheme();
+
+    let holdTimer = null;
+    let isBlackoutJustTriggered = false;
+
+    // Звичайний клік (світло/ніч)
+    themeToggle.addEventListener('change', (e) => {
+        // Якщо блекаут щойно увімкнувся від утримання, ми ігноруємо цей зміну стану
+        if (isBlackoutJustTriggered) {
+            isBlackoutJustTriggered = false;
+            themeToggle.checked = !e.target.checked; 
+            return;
+        }
+
+        // Якщо блекаут вже АКТИВНИЙ, то будь-який клік просто вимикає його
+        if (body.classList.contains('blackout')) {
+            forceDisableBlackout();
+            // Відновлюємо правильний стан чекбоксу для поточної теми
+            themeToggle.checked = (localStorage.getItem('theme') === 'dark');
+            return; 
+        }
+
+        // Нормальна зміна теми
+        if (e.target.checked) {
+            body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.classList.remove('dark-theme');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Логіка утримання (Blackout - 3 секунди)
+    function startHold(e) {
+        if (e.type !== 'touchstart' && e.button !== 0) return; // тільки ліва кнопка або тап
+        if (holdTimer) clearTimeout(holdTimer);
+        
+        holdTimer = setTimeout(() => {
+            if (!body.classList.contains('blackout')) {
+                body.classList.add('blackout');
+                document.addEventListener('mousemove', updateFlashlightFn);
+                body.style.setProperty('--mouse-x', '50vw');
+                body.style.setProperty('--mouse-y', '50vh');
+                isBlackoutJustTriggered = true; 
+            }
+        }, 2000);
+    }
+
+    function cancelHold() {
+        if (holdTimer) clearTimeout(holdTimer);
+    }
+
+    lampButton.addEventListener('mousedown', startHold);
+    lampButton.addEventListener('touchstart', startHold, {passive: true});
+
+    lampButton.addEventListener('mouseup', cancelHold);
+    lampButton.addEventListener('mouseleave', cancelHold);
+    lampButton.addEventListener('touchend', cancelHold);
+
+    updateFlashlightFn = function(e) {
+        body.style.setProperty('--mouse-x', e.clientX + 'px');
+        body.style.setProperty('--mouse-y', e.clientY + 'px');
+    };
+}

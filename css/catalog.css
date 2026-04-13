@@ -7,6 +7,58 @@
   --wood-shadow: rgba(0, 0, 0, 0.15); /* Об'ємна тінь справа */
 }
 
+/* =========================================
+   THEMES & LIGHTING
+   ========================================= */
+body.dark-theme {
+  --wood-bg: #8c3b0b; /* Темніший, насичений коричневий колір деревини */
+  --wood-gap: #4a1d04;
+  --wood-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* --- Світла тема: Віконні промені на фоні (під картками) --- */
+#catalog-view::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 5; /* Під контентом, що має z-index 20 */
+  background: linear-gradient(
+    -45deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.25) 20%, /* Початок першого променя (розмитий край) */
+    rgba(255, 255, 255, 0.25) 35%, /* Кінець першого променя */
+    transparent 40%,
+    transparent 45%,
+    rgba(255, 255, 255, 0.25) 50%, /* Початок другого променя */
+    rgba(255, 255, 255, 0.25) 65%, /* Кінець другого променя */
+    transparent 70%
+  );
+  mix-blend-mode: overlay; /* Робить дерево під собою світлішим коричневим */
+  transition: opacity 0.4s ease, background 0.4s ease;
+}
+
+/* --- Темна тема та блекаут --- */
+body.dark-theme #catalog-view::before {
+  opacity: 1;
+  position: absolute; /* Лампа скролиться, тому світло теж має бути дотичним абсолютно */
+  z-index: 150; /* Вище за лампу та об'єкти столу */
+  
+  /* 
+     == НАЛАШТУВАННЯ СВІТІННЯ ЛАМПИ ==
+     circle at 85vw 150px  -> Центр світіння (виходить з лампи).
+     0% -> rgba(255, 230, 130, 0.95)   -> Найяскравіша точка в центрі.
+     40vh -> rgba(255, 200, 50, 0.3)   -> Це "Тіло" світла. Збільшуй 40vh (наприклад, до 60vh) та 0.3 (до 0.5), щоб світло було густішим і ширшим.
+     140vh -> transparent              -> Кінцева межа розсіювання світла. Збільшуй 140vh, щоб світло добивало ще далі вниз столу.
+  */
+  background: radial-gradient(circle at 85vw 150px, rgba(255, 230, 130, 0.55) 0%, rgba(255, 200, 50, 0.4) 20%, transparent 100vh);
+  mix-blend-mode: overlay;
+}
+
+body.blackout #catalog-view::before {
+  opacity: 0;
+}
+
 #catalog-view {
   position: fixed; /* Fixed "вириває" контейнер з .app-container і прив'язує строго до вікна браузера */
   top: 0;
@@ -34,6 +86,7 @@
   
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff; /* Світлий текст на темному дереві краще читається */
+  transition: background-color 0.4s ease;
 }
 
 /* Статична тінь поверх екрану (не рухається і не повторюється) */
@@ -47,6 +100,22 @@
   box-shadow: inset 0 0 150px rgba(50, 20, 5, 0.8), inset 0 0 40px rgba(20, 10, 0, 0.5);
   pointer-events: none; /* Дозволяє клікати 'крізь' тінь */
   z-index: 50; /* Вище за всі картки, але тільки в межах #catalog-view */
+  transition: box-shadow 0.4s ease, background 0.4s ease;
+}
+
+/* --- Темна тема: Затемнення по краях столу --- */
+body.dark-theme #catalog-view::after {
+  /* Тільки жорстка віньєтка по краях екрану. Центр лишається 100% чистим і насиченим. */
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.95), inset 0 0 50px rgba(0, 0, 0, 0.85); 
+  background: transparent;
+}
+
+/* BLACKOUT (Easter Egg) */
+body.blackout #catalog-view::after {
+  box-shadow: none !important;
+  background: radial-gradient(circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), transparent 0%, transparent 80px, rgba(0,0,0,0.95) 160px, #000 250px) !important;
+  z-index: 1000 !important;
+  transition: none; /* mouse updates shouldn't be animated */
 }
 
 .hidden {
@@ -429,4 +498,79 @@
   border-radius: 5px;
   /* Горизонтальні рівні кнопки (без rotate) */
   box-shadow: inset 1px 1px 2px rgba(255,255,255,0.3), inset -1px -1px 2px rgba(0,0,0,0.4), -1px 2px 2px rgba(0,0,0,0.6);
+}
+
+/* =========================================
+   DESK LAMP (DAY/NIGHT TOGGLE)
+   ========================================= */
+
+.desk-lamp {
+  position: absolute; /* or fixed, depending on if it scrolls */
+  top: -10px;
+  right: -7px;
+  /* Робимо масштабування відносно розміру вікна браузера */
+  width: 20%;      /* Займає 20% ширини вікна */
+  min-width: 180px; /* Але не менше 180px на мобільному */
+  max-width: 400px; /* І не більше 400px на великих екранах */
+  z-index: 100;
+  pointer-events: none;
+}
+
+.lamp-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: auto;
+  filter: drop-shadow( 2px 5px 1px rgba(0,0,0,0.8));
+}
+
+/* ================== LAMP BUTTON CONTAINER ================== */
+.lamp-button-container {
+  position: absolute;
+  /* Підгонка під отвір на пнгшці (відсотки відносно розміру .desk-lamp) */
+  top: 39%;   /* Приблизна позиція по вертикалі */
+  left: 23%;  /* Приблизна позиція по горизонталі */
+  width: 20%; /* Зроблено кнопку вужчою */
+  aspect-ratio: 1.3 / 1; /* Зроблено кнопку візуально вищою відносно ширини */
+  pointer-events: auto;
+}
+
+.lamp-button {
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  width: 100%; 
+  height: 100%;
+  transform: translate(-50%, -50%); /* Віджатий стан */
+  background: radial-gradient(ellipse at 40% 30%, #ff5252, #d32f2f 60%, #9a0000);
+  border-radius: 50%;
+  border: 1px solid #4a0000;
+  /* Червоний 3D об'єм самої кнопки */
+  box-shadow: 
+    inset -1px -1px 3px rgba(0,0,0,0.2),
+    0 3px 0 #a81c1c, 
+    0 4px 0 #961212, 
+    0 5px 0 #800707, 
+    0 6px 0 #690000, 
+    0 7px 5px rgba(0,0,0,0.6); /* тінь всередині лунки */
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Day/Night Button Logic */
+/* 1. When checked (Dark theme active / button pressed down completely) */
+#theme-toggle-chk:checked ~ .desk-lamp .lamp-button {
+  transform: translate(-50%, calc(-50% + 4px));
+  box-shadow: 
+    inset -1px -1px 3px rgba(0,0,0,0.4),
+    0 1px 0 #690000, 
+    0 2px 3px rgba(0,0,0,0.6);
+  background: radial-gradient(ellipse at 40% 30%, #ec2323, #c51c1c 60%, #7e0000);
+}
+
+/* 2. Visual click feedback (Day theme, purely clicking interactions) */
+.lamp-button:active {
+  transform: translate(-50%, calc(-50% + 4px)) !important;
+  box-shadow: 0 1px 0 #690000, 0 2px 3px rgba(0,0,0,0.6) !important;
 }

@@ -5,6 +5,7 @@ import { boardGames } from './database.js';
 import { initGameThemeInteractions, cleanupGameThemeInteractions } from './utilities/theme-manager.js';
 import { initTiltEffect } from './utilities/tilt.js';
 import { initLightbox } from './utilities/lightbox.js';
+import { forceDisableBlackout, restoreCatalogTheme } from './catalog.js';
 
 export function openGamePage(gameId) {
     const game = boardGames.find(g => g.id === gameId);
@@ -16,6 +17,7 @@ export function openGamePage(gameId) {
     // =========================================
     // 1. PREPARE THEME & HTML COMPONENTS
     // =========================================
+    forceDisableBlackout();
     document.body.className = ''; 
     if (game.themeClass) { document.body.classList.add(game.themeClass); } 
     
@@ -139,7 +141,7 @@ export function openGamePage(gameId) {
         cleanupGameThemeInteractions();
         gamePageView.classList.add('hidden');
         catalogView.classList.remove('hidden');
-        document.body.className = ''; 
+        restoreCatalogTheme(); 
     });
 
     // --- Gallery Slider ---
