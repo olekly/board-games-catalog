@@ -2,7 +2,7 @@
 
 /*
 // Шаблон для нової гри:
-{
+    {
         // -----------------------------------------
         // 1. ОСНОВНА ІНФОРМАЦІЯ
         // -----------------------------------------
@@ -97,8 +97,8 @@ export const boardGames = [
         hardnes: 1.19,
         tags: ['party', 'association', 'art', 'family', 'creative'],
 
-        dimensions: { w: 0, h: 0, d: 0 },   //fix that
-        weightGrams: 0,                     //fix that
+        dimensions: { w: 275, h: 275, d: 55 },   
+        weightGrams: 1430,                     //dixit + 3 erweiterungen
         hasBling: false,            
         components: {
             cards: [
@@ -141,7 +141,13 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/odyssey.pdf",
-                cover: "./assets/dixit/odyssey.png" 
+                cover: "./assets/dixit/odyssey.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ],                  
+                    other: '12 дерев\'яних кроликів, 24 жетонів голосування, 12 токенів гравця, поле' 
+                },
             },
             {
                 id: "dixit-quest",
@@ -151,7 +157,12 @@ export const boardGames = [
                 owned: true,
                 planned: true,
                 cardsPdf: "./assets/dixit/quest.pdf",
-                cover: "./assets/dixit/quest.png" 
+                cover: "./assets/dixit/quest.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                }
             },
             {
                 id: "dixit-journey",
@@ -161,7 +172,12 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/journey.pdf",
-                cover: "./assets/dixit/journey.png" 
+                cover: "./assets/dixit/journey.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                }
             },
             {
                 id: "dixit-origins",
@@ -171,7 +187,12 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/origins.pdf",
-                cover: "./assets/dixit/origins.png" 
+                cover: "./assets/dixit/origins.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                } 
             },
             {
                 id: "dixit-daydreams",
@@ -181,7 +202,12 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/daydreams.pdf",
-                cover: "./assets/dixit/daydreams.png" 
+                cover: "./assets/dixit/daydreams.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                } 
             },
             {
                 id: "dixit-memories",
@@ -191,7 +217,12 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/memories.pdf",
-                cover: "./assets/dixit/memories.png" 
+                cover: "./assets/dixit/memories.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                } 
             },
             {
                 id: "dixit-revelations",
@@ -201,7 +232,12 @@ export const boardGames = [
                 owned: true,
                 planned: true,
                 cardsPdf: "./assets/dixit/revelations.pdf",
-                cover: "./assets/dixit/revelations.png" 
+                cover: "./assets/dixit/revelations.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                } 
             },
             {
                 id: "dixit-harmonies",
@@ -211,7 +247,12 @@ export const boardGames = [
                 owned: true,
                 planned: true,
                 cardsPdf: "./assets/dixit/harmonies.pdf",
-                cover: "./assets/dixit/harmonies.png"
+                cover: "./assets/dixit/harmonies.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                }
             },
             {
                 id: "dixit-anniversary",
@@ -221,7 +262,12 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/anniversary.pdf",
-                cover: "./assets/dixit/anniversary.png" 
+                cover: "./assets/dixit/anniversary.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                } 
             },
             {
                 id: "dixit-mirrors",
@@ -231,11 +277,15 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/mirrors.pdf",
-                cover: "./assets/dixit/mirrors.png" 
+                cover: "./assets/dixit/mirrors.png",
+                components: {
+                    cards: [
+                        { size: "80x120", count: 84, sleeved: false } 
+                    ]
+                } 
             }
         ]
     },
-
 
     {   id: "rummikub",
         title: "Rummikub",
@@ -249,7 +299,7 @@ export const boardGames = [
         tags: ['abstract', 'family', 'classic', 'numbers'],
 
         dimensions: { w: 130, h: 215, d: 40 }, 
-        weightGrams: 950, // fix that
+        weightGrams: 350, 
         hasBling: false, 
         components: {
             cards: [], 
@@ -265,11 +315,11 @@ export const boardGames = [
         ],
 
         assets: {
-            cover: "./assets/rummikub/rum-front.png",
+            cover: "./assets/rummikub/rum-front.jpg",
             rules: "./assets/rummikub/rules.pdf",
             logo: "./assets/rummikub/logo.png",
             gallery: [
-                "./assets/rummikub/rum-front.png",
+                "./assets/rummikub/rum-front.jpg",
                 "./assets/rummikub/gal3.jpg",
                 "./assets/rummikub/gal2.jpg",
                 "./assets/rummikub/gal4.jpg",
@@ -288,7 +338,54 @@ export const boardGames = [
         ],
         
         expansions: [] 
+    },
+
+    {   id: 'veggie-crash',
+        title: 'Veggie Crash',
+        themeClass: 'theme-veggie-crash', 
+        price: 12.99, 
+        
+        players: { min: 2, max: 6 }, 
+        language: 'Language Independent', 
+        playTimeMinutes: 15, 
+        hardnes: 1.05, 
+        tags: ['cardgame', 'economy', 'party', 'push-your-luck', 'family'], 
+        
+        dimensions: { w: 130, h: 130, d: 45 }, 
+        weightGrams: 254, 
+        hasBling: false, 
+        components: {
+            cards: [
+                { size: "56.5x87.5", count: 100, sleeved: false } 
+            ],              
+            other: 'Блокнот для підрахунку очок' 
+        },
+
+        shortDescription: 'Швидка та азартна карткова гра про біржові спекуляції на ринку овочів.', 
+        fullDescription: [          
+            'Ласкаво просимо на овочевий ринок, де кожен день — це нова можливість заробити на різниці цін! У цій динамічній картковій грі гравці виступають у ролі спритних торговців, які намагаються передбачити коливання попиту та вигідно продати свій товар.',
+            'Кожного раунду на стіл викладаються картки з різними комбінаціями овочів (на одну більше, ніж гравців). Ви по черзі забираєте собі по одній картці в закриту. Та картка, що залишиться нічиєю, визначить, які овочі подорожчають на ринку!',
+            'Але будьте обережні: якщо ціна на певний овоч злетить занадто високо, станеться "біржовий крах", і його вартість впаде до нуля. Перемагає той, хто після 6 раундів зможе найвигідніше продати свій врожай.'
+        ],
+
+        assets: {    //full  that
+            logo: './assets/veggie-crash/logo.png', 
+            cover: './assets/veggie-crash/box-front.jpg', 
+            rules: './assets/veggie-crash/rules.pdf', 
+            cardsPdf: '', 
+            gallery: [ 
+                './assets/veggie-crash/gameplay-1.jpg',
+                './assets/veggie-crash/gameplay-2.jpg'
+            ]
+        },
+
+        lastPlayedDate: '25.08.2024', 
+        houseRules: [],
+        hallOfFame: [              
+            { name: '', score: '', date: '' }
+        ]
     }
+
 ];
 
 console.log("База завантажена. Ігор у каталозі:", boardGames.length);

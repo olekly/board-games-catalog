@@ -118,7 +118,7 @@ function init3DBox(container) {
         faceEl.className = `rk-box-face rk-face-${face}`;
         
         if (face === 'front') {
-            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-front.png')`;
+            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-front.jpg')`;
             faceEl.style.backgroundColor = 'transparent'; 
         } else if (face === 'right' || face === 'left') {
             faceEl.style.backgroundImage = `url('./assets/rummikub/rum-long.png')`;
