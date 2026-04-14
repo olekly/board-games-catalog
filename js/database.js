@@ -306,7 +306,7 @@ export const boardGames = [
             other: '106 пластикових плиток (по два набори від 1 до 13 у 4 кольорах + 2 джокери), 4 пластикові підставки для плиток, правила гри.' 
         },
 
-        shortDescription: "Геніально проста і неймовірно захоплива гра з числами, що стала світовою класикою.",
+        shortDescription: "Геніально проста гра з числами, що стала світовою класикою.",
         
         fullDescription: [
             "Rummikub — це геніальна у своїй простоті гра, яка вимагає уважності, логічного мислення та вміння планувати на кілька кроків вперед. Замість карт використовуються приємні на дотик пластикові фішки.",
@@ -315,17 +315,17 @@ export const boardGames = [
         ],
 
         assets: {
-            cover: "./assets/rummikub/rum-front.jpg",
+            cover: "./assets/rummikub/rum-front.webp",
             rules: "./assets/rummikub/rules.pdf",
-            logo: "./assets/rummikub/logo.png",
+            logo: "./assets/rummikub/logo.webp",
             gallery: [
-                "./assets/rummikub/rum-front.jpg",
-                "./assets/rummikub/gal3.jpg",
-                "./assets/rummikub/gal2.jpg",
-                "./assets/rummikub/gal4.jpg",
-                "./assets/rummikub/gal5.jpg",
-                "./assets/rummikub/gal6.jpg",
-                "./assets/rummikub/gal7.jpg"
+                "./assets/rummikub/rum-front.webp",
+                "./assets/rummikub/gal3.webp",
+                "./assets/rummikub/gal2.webp",
+                "./assets/rummikub/gal4.webp",
+                "./assets/rummikub/gal5.webp",
+                "./assets/rummikub/gal6.webp",
+                "./assets/rummikub/gal7.webp"
             ]
         },
         

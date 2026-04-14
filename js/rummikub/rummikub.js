@@ -92,7 +92,7 @@ function initCustomRulesTile() {
     customRulesTile.className = 'rk-rules-tile';
     customRulesTile.id = 'rk-custom-rules';
 
-    customRulesTile.innerHTML = `<img src="./assets/rummikub/rules-pic.png" onerror="this.style.display='none'" alt="Rules">`;
+    customRulesTile.innerHTML = `<img src="./assets/rummikub/rules-pic.webp" onerror="this.style.display='none'" alt="Rules">`;
     
     infoCard.appendChild(customRulesTile);
     infoCard.style.position = 'relative'; 
@@ -118,12 +118,12 @@ function init3DBox(container) {
         faceEl.className = `rk-box-face rk-face-${face}`;
         
         if (face === 'front') {
-            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-front.jpg')`;
+            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-front.webp')`;
             faceEl.style.backgroundColor = 'transparent'; 
         } else if (face === 'right' || face === 'left') {
-            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-long.png')`;
+            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-long.webp')`;
         } else if (face === 'top' || face === 'bottom') {
-            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-short.png')`;
+            faceEl.style.backgroundImage = `url('./assets/rummikub/rum-short.webp')`;
         }
         
         boxEntity.appendChild(faceEl);
@@ -253,7 +253,7 @@ function createSingleScatterTile(wrapper, index, jokerIndex, deck, x, y) {
             faceEl.style.borderRadius = "4px";
             
             if (isJoker) {
-                faceEl.style.backgroundImage = "url('./assets/rummikub/joker-pic.png')";
+                faceEl.style.backgroundImage = "url('./assets/rummikub/joker-pic.webp')";
                 faceEl.style.backgroundColor = "transparent";
                 faceEl.style.backgroundSize = "cover";
             } else {
@@ -264,7 +264,7 @@ function createSingleScatterTile(wrapper, index, jokerIndex, deck, x, y) {
                 const bgW = 1300 + 1200 * gapX;
                 const bgH = 400 + 300 * gapY;
                 
-                faceEl.style.backgroundImage = "url('./assets/rummikub/all-tiles-sprite.png')";
+                faceEl.style.backgroundImage = "url('./assets/rummikub/all-tiles-sprite.webp')";
                 faceEl.style.backgroundSize = `${bgW}% ${bgH}%`;
                 faceEl.style.backgroundPosition = `${(spriteCol / 12) * 100}% ${(spriteRow / 3) * 100}%`;
                 faceEl.style.backgroundColor = "transparent";
@@ -272,7 +272,7 @@ function createSingleScatterTile(wrapper, index, jokerIndex, deck, x, y) {
         }
 
         if (face === 'back') {
-            faceEl.style.backgroundImage = "url('./assets/rummikub/tile-back.png')";
+            faceEl.style.backgroundImage = "url('./assets/rummikub/tile-back.webp')";
             faceEl.style.backgroundSize = "cover";
             faceEl.style.borderRadius = "4px";
         }
