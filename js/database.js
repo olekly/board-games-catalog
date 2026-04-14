@@ -115,15 +115,14 @@ export const boardGames = [
         ],
 
         assets: {
-            cover: "./assets/dixit/cover.jpg",
+            cover: "./assets/dixit/cover.webp",
             rules: "./assets/dixit/rules.pdf",
-            logo: "./assets/dixit/logo.png",
+            logo: "./assets/dixit/logo.webp",
             cardsPdf: "assets/dixit/dixit-cards.pdf",
-            gallery: ["./assets/dixit/cover.jpg",
-                      "./assets/dixit/gal2.png", 
-                      "./assets/dixit/gal3.jpg", 
-                      "./assets/dixit/gal4.jpg", 
-                      "./assets/dixit/gal1.png"] 
+            gallery: ["./assets/dixit/cover.webp",
+                      "./assets/dixit/gal2.webp", 
+                      "./assets/dixit/gal3.webp", 
+                      "./assets/dixit/gal4.webp"] 
         },
 
         lastPlayedDate: '2024-04-01',               
@@ -141,7 +140,7 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/odyssey.pdf",
-                cover: "./assets/dixit/odyssey.png",
+                cover: "./assets/dixit/odyssey.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -157,7 +156,7 @@ export const boardGames = [
                 owned: true,
                 planned: true,
                 cardsPdf: "./assets/dixit/quest.pdf",
-                cover: "./assets/dixit/quest.png",
+                cover: "./assets/dixit/quest.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -172,7 +171,7 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/journey.pdf",
-                cover: "./assets/dixit/journey.png",
+                cover: "./assets/dixit/journey.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -187,7 +186,7 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/origins.pdf",
-                cover: "./assets/dixit/origins.png",
+                cover: "./assets/dixit/origins.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -202,7 +201,7 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/daydreams.pdf",
-                cover: "./assets/dixit/daydreams.png",
+                cover: "./assets/dixit/daydreams.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -217,7 +216,7 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/memories.pdf",
-                cover: "./assets/dixit/memories.png",
+                cover: "./assets/dixit/memories.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -232,7 +231,7 @@ export const boardGames = [
                 owned: true,
                 planned: true,
                 cardsPdf: "./assets/dixit/revelations.pdf",
-                cover: "./assets/dixit/revelations.png",
+                cover: "./assets/dixit/revelations.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -247,7 +246,7 @@ export const boardGames = [
                 owned: true,
                 planned: true,
                 cardsPdf: "./assets/dixit/harmonies.pdf",
-                cover: "./assets/dixit/harmonies.png",
+                cover: "./assets/dixit/harmonies.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -262,7 +261,7 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/anniversary.pdf",
-                cover: "./assets/dixit/anniversary.png",
+                cover: "./assets/dixit/anniversary.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 
@@ -277,7 +276,7 @@ export const boardGames = [
                 owned: false,
                 planned: true,
                 cardsPdf: "./assets/dixit/mirrors.pdf",
-                cover: "./assets/dixit/mirrors.png",
+                cover: "./assets/dixit/mirrors.webp",
                 components: {
                     cards: [
                         { size: "80x120", count: 84, sleeved: false } 

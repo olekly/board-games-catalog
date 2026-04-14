@@ -534,8 +534,8 @@ body.blackout #catalog-view::after {
 
 .desk-lamp {
   position: absolute; /* or fixed, depending on if it scrolls */
-  top: -10px;
-  right: -7px;
+  top: -15px;
+  right: -30px; 
   /* Робимо масштабування відносно розміру вікна браузера */
   width: 20%;      /* Займає 20% ширини вікна */
   min-width: 180px; /* Але не менше 180px на мобільному */

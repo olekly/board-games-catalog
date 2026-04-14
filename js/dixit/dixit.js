@@ -129,12 +129,12 @@ export function initDixitParallax() {
     container.id = 'dixit-parallax-container';
     
     container.innerHTML = `
-        <img src="./assets/dixit/card1.png" class="px-item px-card" data-speed="0.45" data-rot="-15" data-rot-speed="-0.03" style="left: 3%; top: -17%;" onerror="this.style.display='none'">
-        <img src="./assets/dixit/card2.png" class="px-item px-card" data-speed="0.7" data-rot="25" data-rot-speed="0.05" style="right: 5%; top: -30%;" onerror="this.style.display='none'">
-        <img src="./assets/dixit/card3.png" class="px-item px-card" data-speed="0.3" data-rot="-5" data-rot-speed="-0.02" style="left: 85%; top: 40%;" onerror="this.style.display='none'">
-        <img src="./assets/dixit/card4.png" class="px-item px-card" data-speed="0.55" data-rot="10" data-rot-speed="0.04" style="left: 15%; top: 70%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/card1.webp" class="px-item px-card" data-speed="0.45" data-rot="-15" data-rot-speed="-0.03" style="left: 3%; top: -17%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/card2.webp" class="px-item px-card" data-speed="0.7" data-rot="25" data-rot-speed="0.05" style="right: 5%; top: -30%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/card3.webp" class="px-item px-card" data-speed="0.3" data-rot="-5" data-rot-speed="-0.02" style="left: 85%; top: 40%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/card4.webp" class="px-item px-card" data-speed="0.55" data-rot="10" data-rot-speed="0.04" style="left: 15%; top: 70%;" onerror="this.style.display='none'">
 
-        <img src="./assets/dixit/char1.png" class="px-item px-char" data-speed="-2.35" data-rot="2" style="left: 8%; bottom: -120%;" onerror="this.style.display='none'">
+        <img src="./assets/dixit/char1.webp" class="px-item px-char" data-speed="-2.35" data-rot="2" style="left: 8%; bottom: -120%;" onerror="this.style.display='none'">
      `;
     
     document.body.appendChild(container);
