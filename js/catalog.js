@@ -168,3 +168,83 @@ export function initThemeToggle() {
         body.style.setProperty('--mouse-y', e.clientY + 'px');
     };
 }
+
+// =========================================
+// SCRABBLE PROXIMITY REPULSION
+// =========================================
+let scrabbleInteractionHandler = null;
+
+export function initScrabbleInteraction() {
+    const tiles = document.querySelectorAll('.scrabble-tile');
+    if (!tiles.length) return;
+
+    const REPULSION_RADIUS = 120; // Радіус взаємодії курсора
+    const REPULSION_FORCE = 30; // Максимальна сила відштовхування
+
+    scrabbleInteractionHandler = (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        tiles.forEach(tile => {
+            const rect = tile.getBoundingClientRect();
+            // Центр фішки
+            const tileCenterX = rect.left + rect.width / 2;
+            const tileCenterY = rect.top + rect.height / 2;
+
+            const distX = mouseX - tileCenterX;
+            const distY = mouseY - tileCenterY;
+            const distance = Math.sqrt(distX * distX + distY * distY);
+
+            if (distance < REPULSION_RADIUS) {
+                // Чим ближче курсор, тим сильніший ефект
+                const force = (REPULSION_RADIUS - distance) / REPULSION_RADIUS;
+                
+                // Відштовхуємо у протилежний від курсора бік
+                // Якщо distX додатній (курсор справа), то ми рухаємо вліво (від'ємний translateX)
+                const moveX = (distX / distance || 0) * -REPULSION_FORCE * force;
+                const moveY = (distY / distance || 0) * -REPULSION_FORCE * force;
+                
+                // Додаємо випадковості повороту для "недбалості"
+                const rotate = moveX * 0.5;
+
+                // Піднімаємо падаючу тінь, але залишаємо базовий об'єм дерева на місці
+                const liftShadow = `
+                    -3px 4px 0px #704d2e, 
+                    ${-3 - moveX/5}px ${5 - moveY/5}px ${15 * force}px rgba(0,0,0,0.6), 
+                    inset 2px 2px 5px rgba(255,255,255,0.8), 
+                    inset -2px -2px 5px rgba(0,0,0,0.2)
+                `;
+
+                tile.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotate}deg) scale(1.05)`;
+                tile.style.boxShadow = liftShadow;
+                tile.style.zIndex = "10";
+            } else {
+                // Плавне повернення завдяки CSS transition
+                tile.style.transform = '';
+                tile.style.boxShadow = '';
+                tile.style.zIndex = "2";
+            }
+        });
+    };
+
+    document.addEventListener('mousemove', scrabbleInteractionHandler);
+}
+
+export function removeScrabbleInteraction() {
+    if (scrabbleInteractionHandler) {
+        document.removeEventListener('mousemove', scrabbleInteractionHandler);
+        // Скидаємо стилі всіх фішок, щоб вони "впали" назад, якщо ми залишили сторінку під час анімації
+        const tiles = document.querySelectorAll('.scrabble-tile');
+        tiles.forEach(tile => {
+            tile.style.transform = '';
+            tile.style.boxShadow = '';
+            tile.style.zIndex = "2";
+        });
+    }
+}
+
+export function restoreScrabbleInteraction() {
+    if (scrabbleInteractionHandler) {
+        document.addEventListener('mousemove', scrabbleInteractionHandler);
+    }
+}

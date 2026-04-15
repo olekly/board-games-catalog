@@ -19,8 +19,9 @@ body.dark-theme {
 /* --- Світла тема: Віконні промені на фоні (під картками) --- */
 #catalog-view::before {
   content: "";
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  position: fixed; /* Змінено з fixed для кращої продуктивності скролу */
+  top: 0; left: 0; width: 100vw; 
+  height: 100vh; /* Обмежена висота замість 100vh, щоб градієнт не розтягувався нескінченно */
   pointer-events: none;
   z-index: 5; /* Під контентом, що має z-index 20 */
   background: linear-gradient(
@@ -36,23 +37,21 @@ body.dark-theme {
   );
   mix-blend-mode: overlay; /* Робить дерево під собою світлішим коричневим */
   transition: opacity 0.4s ease, background 0.4s ease;
+  transform: translateZ(0); /* GPU acceleration */
+  will-change: opacity;
 }
 
 /* --- Темна тема та блекаут --- */
 body.dark-theme #catalog-view::before {
   opacity: 1;
-  position: absolute; /* Лампа скролиться, тому світло теж має бути дотичним абсолютно */
-  z-index: 150; /* Вище за лампу та об'єкти столу */
-  
-  /* 
-     == НАЛАШТУВАННЯ СВІТІННЯ ЛАМПИ ==
-     circle at 85vw 150px  -> Центр світіння (виходить з лампи).
-     0% -> rgba(255, 230, 130, 0.95)   -> Найяскравіша точка в центрі.
-     40vh -> rgba(255, 200, 50, 0.3)   -> Це "Тіло" світла. Збільшуй 40vh (наприклад, до 60vh) та 0.3 (до 0.5), щоб світло було густішим і ширшим.
-     140vh -> transparent              -> Кінцева межа розсіювання світла. Збільшуй 140vh, щоб світло добивало ще далі вниз столу.
-  */
-  background: radial-gradient(circle at 85vw 150px, rgba(255, 230, 130, 0.55) 0%, rgba(255, 200, 50, 0.4) 20%, transparent 100vh);
+  position: absolute; 
+  top: 0; left: 0; width: 100vw; 
+  height: 1500px; /* Обмежена висота світла лампи для продуктивності */
+  z-index: 150; 
+  background: radial-gradient(circle at 85vw 150px, rgba(248, 227, 144, 0.55) 0%, rgba(251, 200, 61, 0.4) 20%, transparent 1200px);
   mix-blend-mode: overlay;
+  transform: translateZ(0); /* GPU acceleration */
+  will-change: opacity;
 }
 
 body.blackout #catalog-view::before {
@@ -101,6 +100,8 @@ body.blackout #catalog-view::before {
   pointer-events: none; /* Дозволяє клікати 'крізь' тінь */
   z-index: 50; /* Вище за всі картки, але тільки в межах #catalog-view */
   transition: box-shadow 0.4s ease, background 0.4s ease;
+  transform: translateZ(0); /* GPU acceleration */
+  will-change: opacity, box-shadow;
 }
 
 /* --- Темна тема: Затемнення по краях столу --- */
@@ -130,6 +131,7 @@ body.blackout #catalog-view::after {
   z-index: 20; /* Розміщуємо картки вище за футер */
   flex-grow: 1; /* Завжди заповнює вільний простір, штовхаючи футер вниз */
   flex-shrink: 0;
+  margin-top: -27vw; /* Fluid overlap: адаптивно засуваємо ігри під нижній край килимка пропорційно ширині вікна */
 }
 
 /* =========================================
@@ -533,13 +535,11 @@ body.blackout #catalog-view::after {
    ========================================= */
 
 .desk-lamp {
-  position: absolute; /* or fixed, depending on if it scrolls */
-  top: -15px;
-  right: -30px; 
-  /* Робимо масштабування відносно розміру вікна браузера */
-  width: 20%;      /* Займає 20% ширини вікна */
-  min-width: 180px; /* Але не менше 180px на мобільному */
-  max-width: 400px; /* І не більше 400px на великих екранах */
+  position: absolute;
+  top: -25px; /* Підняли вище, щоб сховати обрізаний верх */
+  right: 0%; /* Ближче до правого краю діорами */
+  /* Fluid width relative to the diorama container */
+  width: clamp(150px, 30%, 450px); 
   z-index: 100;
   pointer-events: none;
 }
@@ -588,7 +588,7 @@ body.blackout #catalog-view::after {
 
 /* Day/Night Button Logic */
 /* 1. When checked (Dark theme active / button pressed down completely) */
-#theme-toggle-chk:checked ~ .desk-lamp .lamp-button {
+#theme-toggle-chk:checked ~ .header-diorama .desk-lamp .lamp-button {
   transform: translate(-50%, calc(-50% + 4px));
   box-shadow: 
     inset -1px -1px 3px rgba(0,0,0,0.4),
@@ -601,4 +601,140 @@ body.blackout #catalog-view::after {
 .lamp-button:active {
   transform: translate(-50%, calc(-50% + 4px)) !important;
   box-shadow: 0 1px 0 #690000, 0 2px 3px rgba(0,0,0,0.6) !important;
+}
+
+/* =========================================
+   HEADER DIORAMA (WRAPPER)
+   ========================================= */
+.header-diorama {
+  position: relative;
+  width: 100%;
+  max-width: 2000px; /* Розширено для простору */
+  margin: 0 auto;
+  z-index: 10;
+}
+
+/* =========================================
+   HEADER & SCRABBLE TITLE (STEP 2)
+   ========================================= */
+
+#felt-header {
+  position: relative; /* Дозволяє контенту всередині розпирати діораму по висоті */
+  width: 100%;
+  z-index: 10;
+}
+
+.felt-bg-img {
+  position: relative; /* Дає висоту батьківському контейнеру (запобігає обрізанню кропом) */
+  display: block;
+  top: clamp(-500px, -18vw, -100px); /* Усуваємо верхню щілину впритул до екрану */
+  left: 50%;
+  transform: translateX(-50%) rotate(8deg); /* Ротація згідно завдання */
+  width: 130vw; /* Завжди покриває весь екран, навіть за межами діорами */
+  height: 200%; /* Розтягуємо висоту */
+  min-height: 850px; 
+  object-fit: cover; /* Аналог background-size: cover (заповнює всю площу без пустих полів) */
+  object-position: top center; /* Аналог background-position: top center */
+  z-index: -1;
+  filter: drop-shadow(5px 6px 3px rgba(0, 0, 0, 0.8)); 
+}
+
+/* Прибираємо старе вікно пошуку з потоку */
+#filters {
+  display: none;
+}
+
+/* =========================================
+   SCRABBLE TILES
+   ========================================= */
+.scrabble-board {
+  position: absolute;
+  /* Fluid drift: down and left on wider screens */
+  top: clamp(40px, 6vw, 110px);
+  right: clamp(13%, 10vw, 300px);
+  z-index: 20;
+
+  display: flex;
+  flex-direction: column;
+  /* Fluid row spacing */
+  gap: clamp(10px, 3vw, 60px); 
+  align-items: flex-start;
+}
+
+.scrabble-word {
+  display: flex;
+  /* Fluid tile spacing */
+  gap: clamp(4px, 1.2vw, 20px);
+}
+/* Кожне ВЕРХНЄ слово зсунуто лівіше, тобто кожне нижче зсуваємо правіше */
+.scrabble-word.board { margin-left: 0px; }
+.scrabble-word.games { margin-left: clamp(20px, 4vw, 60px); }
+.scrabble-word.catalog { margin-left: clamp(40px, 8vw, 120px); }
+
+
+.scrabble-tile {
+  position: relative;
+  /* Fluid Tile Sizes */
+  width: clamp(10px, 5vw, 60px);
+  height: clamp(10px, 5vw, 60px);
+  background: #cba271; /* Трошки темніше дерево */
+  border-radius: 20%;
+  box-shadow: 
+    clamp(-6px, -0.5vw, -1px) clamp(3px, 0.6vw, 8px) 0px #4a2810, /* Thicker, sharper 3D volume */
+    clamp(-8px, -0.6vw, -2px) clamp(5px, 0.8vw, 12px) 2px rgba(0,0,0,0.7), /* Crisper, deeper drop shadow */
+    inset 2px 2px 3px rgba(255,255,255,0.8), /* Світлий відблиск на фасці */
+    inset -2px -4px 3px rgba(0,0,0,0.3); /* Темна фаска з іншого боку */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #3b2818; /* Колір випаленого дерева */
+  font-size: 32px;
+  cursor: pointer;
+  /* Анімації для відштовхування миші */
+  will-change: transform, box-shadow;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+  user-select: none;
+  z-index: 2; /* Щоб відштовхуючись літали над сусідами */
+}
+
+/* Неряшливі букви (сильно нахилені розкидані фішки для більшого реалізму) */
+.scrabble-word.board .scrabble-tile:nth-child(1) { transform: rotate(-6deg) translateY(3px) translateX(-2px); }
+.scrabble-word.board .scrabble-tile:nth-child(2) { transform: rotate(5deg) translateY(-1px); }
+.scrabble-word.board .scrabble-tile:nth-child(3) { transform: rotate(-3deg) translateY(1px); }
+.scrabble-word.board .scrabble-tile:nth-child(4) { transform: rotate(7deg) translateY(-3px); }
+.scrabble-word.board .scrabble-tile:nth-child(5) { transform: rotate(8deg) translateY(-2px) translateX(2px); }
+
+.scrabble-word.games .scrabble-tile:nth-child(1) { transform: rotate(4deg) translateY(2px); }
+.scrabble-word.games .scrabble-tile:nth-child(2) { transform: rotate(-7deg) translateY(-2px); }
+.scrabble-word.games .scrabble-tile:nth-child(3) { transform: rotate(2deg) translateY(4px); }
+.scrabble-word.games .scrabble-tile:nth-child(4) { transform: rotate(6deg) translateY(1px); }
+.scrabble-word.games .scrabble-tile:nth-child(5) { transform: rotate(-5deg) translateY(-3px); }
+
+.scrabble-word.catalog .scrabble-tile:nth-child(1) { transform: rotate(-8deg) translateY(-1px); }
+.scrabble-word.catalog .scrabble-tile:nth-child(2) { transform: rotate(5deg) translateY(3px); }
+.scrabble-word.catalog .scrabble-tile:nth-child(3) { transform: rotate(-4deg) translateY(2px); }
+.scrabble-word.catalog .scrabble-tile:nth-child(4) { transform: rotate(8deg) translateY(-4px); }
+.scrabble-word.catalog .scrabble-tile:nth-child(5) { transform: rotate(-3deg) translateY(1px); }
+.scrabble-word.catalog .scrabble-tile:nth-child(6) { transform: rotate(6deg) translateY(2px); }
+.scrabble-word.catalog .scrabble-tile:nth-child(7) { transform: rotate(-6deg) translateY(4px) translateX(1px); }
+
+.scrabble-tile .letter {
+  font-size: clamp(0.36rem, 3vw, 2.2rem);
+  font-weight: bold;
+  color: #4a2a10; /* Темно-коричнева випалена фарба */
+  user-select: none;
+  z-index: 2; /* Над текстурою фішки */
+}
+
+.scrabble-tile .value {
+  position: absolute;
+  bottom: clamp(0.5px, 0.5vw, 4px);
+  right: clamp(0.5px, 0.5vw, 5px);
+  font-size: clamp(0.13rem, 1vw, 0.8rem);
+  font-weight: bold;
+  color: #4a2a10;
+  user-select: none;
+  z-index: 2;
 }

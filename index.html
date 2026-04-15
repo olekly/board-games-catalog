@@ -15,21 +15,50 @@
         <!-- Checkbox for theme toggle (visual state) -->
         <input type="checkbox" id="theme-toggle-chk" style="display: none;" />
 
-        <!-- Desk Lamp Base (Step 2 - Day/Night toggle placeholder) -->
-        <div class="desk-lamp" title="Desk Lamp">
-          <img src="assets/textures/lapm1.webp" class="lamp-image" alt="Desk Lamp" />
-          
-          <div class="lamp-button-container">
-            <label class="lamp-button" for="theme-toggle-chk"></label>
+        <header class="header-diorama">
+          <!-- Desk Lamp Base (Step 2 - Day/Night toggle placeholder) -->
+          <div class="desk-lamp" title="Desk Lamp">
+            <img src="assets/textures/lapm1.webp" class="lamp-image" alt="Desk Lamp" />
+            
+            <div class="lamp-button-container">
+              <label class="lamp-button" for="theme-toggle-chk"></label>
+            </div>
           </div>
-        </div>
 
-        <header>
-          <h1>Board Games Catalog</h1>
-          <nav id="filters">
-            <input type="text" id="search-input" placeholder="Пошук гри..." />
-          </nav>
+          <div id="felt-header">
+            <img src="assets/textures/table1.webp" class="felt-bg-img" alt="">
+          <div class="scrabble-board">
+            <div class="scrabble-word board">
+              <div class="scrabble-tile"><span class="letter">B</span><span class="value">3</span></div>
+              <div class="scrabble-tile"><span class="letter">O</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">A</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">R</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">D</span><span class="value">2</span></div>
+            </div>
+            <div class="scrabble-word games">
+              <div class="scrabble-tile"><span class="letter">G</span><span class="value">2</span></div>
+              <div class="scrabble-tile"><span class="letter">A</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">M</span><span class="value">3</span></div>
+              <div class="scrabble-tile"><span class="letter">E</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">S</span><span class="value">1</span></div>
+            </div>
+            <div class="scrabble-word catalog">
+              <div class="scrabble-tile"><span class="letter">C</span><span class="value">3</span></div>
+              <div class="scrabble-tile"><span class="letter">A</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">T</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">A</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">L</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">O</span><span class="value">1</span></div>
+              <div class="scrabble-tile"><span class="letter">G</span><span class="value">2</span></div>
+            </div>
+          </div>
+          </div>
         </header>
+
+        <!-- Поки що ховаємо старий пошук, доки не знайдемо для нього нове стильне місце -->
+        <nav id="filters" style="display: none;">
+          <input type="text" id="search-input" placeholder="Пошук гри..." />
+        </nav>
         <div id="content-area">
           <p style="text-align: center">Loading collection...</p>
         </div>

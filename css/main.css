@@ -12,6 +12,14 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #e8dcc8;
     color: #3b2514;  
+    user-select: none; /* Заборона виділення об'єктів глобально */
+    -webkit-user-select: none;
+}
+
+/* Дозволяємо виділяти тільки текстові елементи та поля вводу */
+p, h1, h2, h3, h4, h5, h6, input, textarea, .card-info * {
+    user-select: text;
+    -webkit-user-select: text;
 }
 
 body::before {
@@ -73,21 +81,7 @@ body {
    CATALOG: HEADER & SEARCH
    ========================================= */
 
-header {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    padding: 30px;
-    background: rgba(136, 125, 106, 0.6);
-    border-radius: 16px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-header h1 {
-    margin-bottom: 15px;
-    font-size: 2.5rem;
-}
+/* (Стилі header видалені, щоб не заважали новому #felt-header) */
 
 .search-input {
     padding: 10px;

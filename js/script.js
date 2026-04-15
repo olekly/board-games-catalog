@@ -2,7 +2,7 @@
 // MAIN CONTROLLER & SEARCH
 // =========================================
 import { boardGames } from './database.js';
-import { renderCatalog, initThemeToggle } from './catalog.js';
+import { renderCatalog, initThemeToggle, initScrabbleInteraction } from './catalog.js';
 
 // =========================================
 // 1. INITIALIZATION
@@ -13,6 +13,7 @@ boardGames.sort((gameA, gameB) => {
 
 renderCatalog(boardGames);
 initThemeToggle();
+initScrabbleInteraction();
 
 // =========================================
 // 2. SEARCH FILTER
