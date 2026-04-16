@@ -53,12 +53,63 @@
             </div>
           </div>
           </div>
+
+          <!-- Meeple Randomizer -->
+          <div class="meeple-container" id="meeple-container" title="Хто ходить першим?">
+            <img src="assets/textures/meeple.webp" class="meeple-img" alt="Meeple">
+            <div class="meeple-bubble" id="meeple-bubble">Хто наймолодший - той ходить першим!</div>
+          </div>
+
+          <!-- Clipboard Filters & Search -->
+          <div class="clipboard-board">
+            <img class="clipboard-bg" src="assets/textures/clipboard.webp" alt="Clipboard">
+            <div class="clipboard-content">
+              <h2 class="handwriting-text clipboard-title">Search & Filters</h2>
+              <input type="text" id="search-input" class="clipboard-input handwriting-text" placeholder="Знайти гру..." autocomplete="off">
+              
+              <div class="clipboard-filters">
+                <div class="lang-filters">
+                  <label class="handwriting-text circle-checkbox">
+                    <input type="checkbox" id="lang-uk" value="uk"> <span class="circle-mark">Українська</span>
+                  </label>
+                  <label class="handwriting-text circle-checkbox">
+                    <input type="checkbox" id="lang-en" value="en"> <span class="circle-mark">English</span>
+                  </label>
+                  <label class="handwriting-text circle-checkbox">
+                    <input type="checkbox" id="lang-de" value="de"> <span class="circle-mark">Deutsch</span>
+                  </label>
+                  <label class="handwriting-text circle-checkbox">
+                    <input type="checkbox" id="lang-ind" value="ind"> <span class="circle-mark">Мовонезалежна</span>
+                  </label>
+                </div>
+                
+                <div class="slider-group">
+                  <label class="handwriting-text">Гравців (Від <span id="players-val-min">-</span> до <span id="players-val-max">-</span>):</label>
+                  <div class="dual-slider-wrapper" id="players-slider-wrapper">
+                    <div class="dual-slider-track"></div>
+                    <div class="dual-slider-fill" id="players-fill"></div>
+                    <input type="range" id="players-min" class="dual-slider" min="0" value="0">
+                    <input type="range" id="players-max" class="dual-slider" min="0" value="10">
+                  </div>
+                </div>
+                <div class="slider-group">
+                  <label class="handwriting-text">Хвилин (Від <span id="time-val-min">-</span> до <span id="time-val-max">-</span>):</label>
+                  <div class="dual-slider-wrapper" id="time-slider-wrapper">
+                    <div class="dual-slider-track"></div>
+                    <div class="dual-slider-fill" id="time-fill"></div>
+                    <input type="range" id="time-min" class="dual-slider" min="0" step="5" value="0">
+                    <input type="range" id="time-max" class="dual-slider" min="0" step="5" value="120">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hand-Drawn Randomizer Button -->
+              <button class="drawn-btn" id="game-randomizer-btn">Рандомайзер</button>
+              <p class="marauder-text handwriting-text" id="marauder-text">I solemnly swear that I am up to no good...</p>
+            </div>
+          </div>
         </header>
 
-        <!-- Поки що ховаємо старий пошук, доки не знайдемо для нього нове стильне місце -->
-        <nav id="filters" style="display: none;">
-          <input type="text" id="search-input" placeholder="Пошук гри..." />
-        </nav>
         <div id="content-area">
           <p style="text-align: center">Loading collection...</p>
         </div>

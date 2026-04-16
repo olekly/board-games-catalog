@@ -8,7 +8,7 @@
     --rk-ivory-dark: #EAE0C7;
     --rk-shadow-1: #D4C9AD;
     --rk-shadow-2: #BCAE8E;
-    --rk-plastic-noise: url('../assets/textures/otis-redding.png');
+    --rk-plastic-noise: url('../../assets/textures/otis-redding.png');
 }
 
 /* --- Base --- */
@@ -45,7 +45,7 @@ body.theme-rummikub .card-stats span {
     height: 200vh;
     background-image:
         linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.05) 30%, rgba(0, 0, 0, 0.8) 100%),
-        url('../assets/textures/wood_table_diff_4k.webp');
+        url('../../assets/textures/wood_table_diff_4k.webp');
     background-size: 100% 100%, 1200px 1000px;
     background-position: repeat;
     transform: perspective(1000px) rotateX(45deg);

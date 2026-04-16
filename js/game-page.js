@@ -6,6 +6,7 @@ import { initGameThemeInteractions, cleanupGameThemeInteractions } from './utili
 import { initTiltEffect } from './utilities/tilt.js';
 import { initLightbox } from './utilities/lightbox.js';
 import { forceDisableBlackout, restoreCatalogTheme, removeScrabbleInteraction, restoreScrabbleInteraction } from './catalog.js';
+import { mountCatalogListeners, unmountCatalogListeners } from './script.js';
 
 export function openGamePage(gameId) {
     const game = boardGames.find(g => g.id === gameId);
@@ -128,6 +129,9 @@ export function openGamePage(gameId) {
 
     catalogView.classList.add('hidden');
     gamePageView.classList.remove('hidden');
+    
+    // Manage Global Listeners memory leaks
+    unmountCatalogListeners();
 
     // =========================================
     // 3. INITIALIZE INTERACTIVITY
@@ -144,6 +148,7 @@ export function openGamePage(gameId) {
         catalogView.classList.remove('hidden');
         restoreCatalogTheme(); 
         restoreScrabbleInteraction();
+        mountCatalogListeners();
     });
 
     // --- Gallery Slider ---
