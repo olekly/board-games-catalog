@@ -158,6 +158,15 @@ if (langInd) langInd.addEventListener('change', applyFilters);
 const randomizerBtn = document.getElementById('game-randomizer-btn');
 const marauderText = document.getElementById('marauder-text');
 
+function handleMarauderOutsideClick(e) {
+    if (!randomizerBtn || !marauderText) return;
+    if (!randomizerBtn.contains(e.target) && !marauderText.contains(e.target)) {
+        if (marauderText.classList.contains('revealed')) {
+            marauderText.classList.remove('revealed');
+        }
+    }
+}
+
 if (randomizerBtn && marauderText) {
     randomizerBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -178,15 +187,6 @@ if (randomizerBtn && marauderText) {
             marauderText.classList.add('revealed');
         }
     });
-
-    function handleMarauderOutsideClick(e) {
-        if (!randomizerBtn || !marauderText) return;
-        if (!randomizerBtn.contains(e.target) && !marauderText.contains(e.target)) {
-            if (marauderText.classList.contains('revealed')) {
-                marauderText.classList.remove('revealed');
-            }
-        }
-    }
 }
 
 const meepleContainer = document.getElementById('meeple-container');
